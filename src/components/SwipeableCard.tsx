@@ -108,7 +108,7 @@ export default function SwipeableCard({
       </motion.div>
 
       <motion.div
-        className="bg-card-bg border border-card-border rounded-3xl p-6 shadow-card-lg relative overflow-hidden"
+        className="bg-card-bg border border-card-border rounded-3xl p-7 shadow-card-lg relative overflow-hidden"
         style={{ background: saveBg }}
       >
         <motion.div

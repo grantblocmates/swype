@@ -24,7 +24,7 @@ export default function CardPreview({ card }: CardPreviewProps) {
       />
 
       {/* Key stats below the card */}
-      <div className="mt-4 grid grid-cols-3 gap-2">
+      <div className="mt-5 grid grid-cols-3 gap-2.5">
         <StatBox
           icon={<Percent className="w-3.5 h-3.5" />}
           label="Cashback"
@@ -56,7 +56,7 @@ export default function CardPreview({ card }: CardPreviewProps) {
 
       {/* Chain badges */}
       {card.supported_chains.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
+        <div className="mt-4 flex flex-wrap gap-1.5">
           {card.supported_chains.map((chain) => (
             <ChainBadge key={chain} chain={chain} />
           ))}
@@ -65,7 +65,7 @@ export default function CardPreview({ card }: CardPreviewProps) {
 
       {/* Description */}
       {card.description && (
-        <p className="mt-3 text-sm text-muted leading-relaxed line-clamp-2">
+        <p className="mt-4 text-sm text-muted leading-relaxed line-clamp-2">
           {card.description}
         </p>
       )}
@@ -83,12 +83,12 @@ function StatBox({
   value: string;
 }) {
   return (
-    <div className="bg-subtle rounded-xl px-3 py-2.5 border border-card-border">
-      <div className="flex items-center gap-1.5 text-muted mb-1">
+    <div className="bg-card-bg rounded-xl px-3 py-3 border border-card-border shadow-card">
+      <div className="flex items-center gap-1.5 text-muted mb-1.5">
         {icon}
-        <span className="text-[10px] uppercase tracking-wider font-medium">{label}</span>
+        <span className="text-xs uppercase tracking-wider font-semibold">{label}</span>
       </div>
-      <p className="text-sm font-bold text-foreground">{value}</p>
+      <p className="text-base font-bold text-foreground">{value}</p>
     </div>
   );
 }
