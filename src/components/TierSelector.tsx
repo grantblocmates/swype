@@ -16,17 +16,17 @@ export default function TierSelector({
   if (tiers.length <= 1) return null;
 
   return (
-    <div className="flex gap-1 p-1 bg-white/5 rounded-xl overflow-x-auto no-scrollbar">
+    <div className="flex gap-1 p-1 bg-subtle rounded-2xl overflow-x-auto no-scrollbar">
       {tiers.map((tier) => {
         const isSelected = tier.id === selectedTierId;
         return (
           <button
             key={tier.id}
             onClick={() => onSelect(tier.id)}
-            className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               isSelected
-                ? "bg-accent text-white shadow-lg"
-                : "text-zinc-400 hover:text-white hover:bg-white/5"
+                ? "bg-accent text-white shadow-card"
+                : "text-muted hover:text-foreground hover:bg-card-bg"
             }`}
           >
             {tier.name}

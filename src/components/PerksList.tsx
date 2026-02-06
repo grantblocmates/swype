@@ -45,7 +45,7 @@ interface PerksListProps {
 export default function PerksList({ perks }: PerksListProps) {
   if (perks.length === 0) {
     return (
-      <p className="text-sm text-zinc-500 italic">
+      <p className="text-sm text-muted italic">
         No perks information available.
       </p>
     );
@@ -69,7 +69,7 @@ export default function PerksList({ perks }: PerksListProps) {
           categoryConfig[category as PerkCategory] || categoryConfig.other;
         return (
           <div key={category}>
-            <div className="flex items-center gap-2 mb-2 text-zinc-400">
+            <div className="flex items-center gap-2 mb-2 text-muted">
               {config.icon}
               <h4 className="text-xs font-semibold uppercase tracking-wider">
                 {config.label}
@@ -79,10 +79,10 @@ export default function PerksList({ perks }: PerksListProps) {
               {categoryPerks.map((perk) => (
                 <div
                   key={perk.id}
-                  className="p-3 rounded-lg bg-white/5 border border-white/5"
+                  className="p-3 rounded-xl bg-subtle border border-card-border"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm font-medium text-white">
+                    <p className="text-sm font-medium text-foreground">
                       {perk.perk_name}
                     </p>
                     {perk.perk_value && (
@@ -92,7 +92,7 @@ export default function PerksList({ perks }: PerksListProps) {
                     )}
                   </div>
                   {perk.perk_description && (
-                    <p className="text-xs text-zinc-400 mt-1">
+                    <p className="text-xs text-muted mt-1">
                       {perk.perk_description}
                     </p>
                   )}

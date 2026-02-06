@@ -8,6 +8,7 @@ import ChainBadge from "./ChainBadge";
 import CardTypeBadge from "./CardTypeBadge";
 import { useSavedCards } from "@/context/SavedCardsContext";
 import { X, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 interface ComparisonViewProps {
   cards: CardWithDetails[];
@@ -47,10 +48,16 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
   if (cards.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-zinc-400 text-lg">No cards to compare.</p>
-        <p className="text-zinc-500 text-sm mt-2">
+        <p className="text-foreground text-lg font-medium">No cards to compare.</p>
+        <p className="text-muted text-sm mt-2">
           Swipe right on cards in Browse to save them for comparison.
         </p>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors"
+        >
+          Browse Cards
+        </Link>
       </div>
     );
   }
@@ -89,12 +96,12 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
           return (
             <div
               key={card.id}
-              className="bg-card-bg border border-card-border rounded-2xl p-4 relative"
+              className="bg-card-bg border border-card-border rounded-2xl p-4 relative shadow-card"
             >
               {/* Remove button */}
               <button
                 onClick={() => removeCard(card.id)}
-                className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-zinc-500 hover:text-danger hover:bg-danger/10 transition-colors z-10"
+                className="absolute top-3 right-3 w-7 h-7 rounded-full bg-subtle flex items-center justify-center text-muted hover:text-secondary hover:bg-secondary/10 transition-colors z-10"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -143,7 +150,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                   value={
                     reward?.cashback_percent != null
                       ? `${reward.cashback_percent}%`
-                      : "—"
+                      : "\u2014"
                   }
                   isBest={reward?.cashback_percent === bestCashback}
                 />
@@ -154,7 +161,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                       ? fee.fx_markup_percent === 0
                         ? "Free"
                         : `${fee.fx_markup_percent}%`
-                      : "—"
+                      : "\u2014"
                   }
                   isBest={fee?.fx_markup_percent === bestFx}
                 />
@@ -165,7 +172,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                       ? fee.atm_fee_domestic === 0
                         ? "Free"
                         : `$${fee.atm_fee_domestic}`
-                      : "—"
+                      : "\u2014"
                   }
                 />
                 <CompRow
@@ -184,7 +191,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                         ))}
                       </div>
                     ) : (
-                      "—"
+                      "\u2014"
                     )
                   }
                 />
@@ -200,7 +207,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                       card.google_pay && "Google",
                     ]
                       .filter(Boolean)
-                      .join(", ") || "—"
+                      .join(", ") || "\u2014"
                   }
                 />
               </div>
@@ -211,7 +218,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                   href={card.ref_link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-semibold hover:bg-accent-light transition-colors"
+                  className="mt-4 flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-2xl bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Sign Up
@@ -235,13 +242,17 @@ function CompRow({
   isBest?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between py-2.5 border-b border-white/5 last:border-0">
-      <span className="text-xs text-zinc-500 uppercase tracking-wider">
+    <div
+      className={`flex items-center justify-between py-2.5 border-b border-card-border last:border-0 ${
+        isBest ? "bg-accent/5 -mx-2 px-2 rounded-lg" : ""
+      }`}
+    >
+      <span className="text-xs text-muted uppercase tracking-wider">
         {label}
       </span>
       <span
         className={`text-sm font-medium ${
-          isBest ? "text-success" : "text-white"
+          isBest ? "text-accent font-semibold" : "text-foreground"
         }`}
       >
         {value}

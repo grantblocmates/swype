@@ -24,19 +24,19 @@ export default function CardPreview({ card }: CardPreviewProps) {
       />
 
       {/* Key stats below the card */}
-      <div className="mt-4 grid grid-cols-3 gap-3">
+      <div className="mt-4 grid grid-cols-3 gap-2">
         <StatBox
           icon={<Percent className="w-3.5 h-3.5" />}
           label="Cashback"
           value={
             card.cashback_percent != null
               ? `${card.cashback_percent}%`
-              : "—"
+              : "\u2014"
           }
         />
         <StatBox
           icon={<DollarSign className="w-3.5 h-3.5" />}
-          label="Monthly Fee"
+          label="Monthly"
           value={
             card.monthly_fee === 0
               ? "Free"
@@ -49,7 +49,7 @@ export default function CardPreview({ card }: CardPreviewProps) {
           value={
             card.fx_markup_percent != null
               ? `${card.fx_markup_percent}%`
-              : "—"
+              : "\u2014"
           }
         />
       </div>
@@ -65,7 +65,7 @@ export default function CardPreview({ card }: CardPreviewProps) {
 
       {/* Description */}
       {card.description && (
-        <p className="mt-3 text-sm text-zinc-400 leading-relaxed line-clamp-2">
+        <p className="mt-3 text-sm text-muted leading-relaxed line-clamp-2">
           {card.description}
         </p>
       )}
@@ -83,12 +83,12 @@ function StatBox({
   value: string;
 }) {
   return (
-    <div className="bg-white/5 rounded-lg px-3 py-2 border border-white/5">
-      <div className="flex items-center gap-1.5 text-zinc-500 mb-1">
+    <div className="bg-subtle rounded-xl px-3 py-2.5 border border-card-border">
+      <div className="flex items-center gap-1.5 text-muted mb-1">
         {icon}
-        <span className="text-[10px] uppercase tracking-wider">{label}</span>
+        <span className="text-[10px] uppercase tracking-wider font-medium">{label}</span>
       </div>
-      <p className="text-sm font-semibold text-white">{value}</p>
+      <p className="text-sm font-bold text-foreground">{value}</p>
     </div>
   );
 }

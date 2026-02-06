@@ -15,11 +15,11 @@ function FeeRow({
 }) {
   if (!value) return null;
   return (
-    <div className="flex items-center justify-between py-2.5 border-b border-white/5 last:border-0">
-      <span className="text-sm text-zinc-400">{label}</span>
+    <div className="flex items-center justify-between py-2.5 border-b border-card-border last:border-0">
+      <span className="text-sm text-muted">{label}</span>
       <span
         className={`text-sm font-medium ${
-          highlight ? "text-success" : "text-white"
+          highlight ? "text-accent" : "text-foreground"
         }`}
       >
         {value}
@@ -42,7 +42,7 @@ function formatCurrency(val: number | null | undefined): string | null {
 export default function FeeTable({ fees }: FeeTableProps) {
   if (!fees) {
     return (
-      <p className="text-sm text-zinc-500 italic">
+      <p className="text-sm text-muted italic">
         No fee information available.
       </p>
     );
@@ -50,7 +50,7 @@ export default function FeeTable({ fees }: FeeTableProps) {
 
   return (
     <div className="space-y-1">
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">
         Foreign Exchange
       </h4>
       <FeeRow
@@ -67,7 +67,7 @@ export default function FeeTable({ fees }: FeeTableProps) {
         value={formatPercent(fees.weekend_fx_surcharge)}
       />
 
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3 mt-4">
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted mb-3 mt-4">
         ATM Withdrawals
       </h4>
       <FeeRow
@@ -88,7 +88,7 @@ export default function FeeTable({ fees }: FeeTableProps) {
         value={formatCurrency(fees.atm_free_limit_monthly)}
       />
 
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3 mt-4">
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted mb-3 mt-4">
         Top-Up Fees
       </h4>
       <FeeRow
@@ -109,7 +109,7 @@ export default function FeeTable({ fees }: FeeTableProps) {
       {(fees.borrow_interest_rate != null ||
         fees.liquidation_threshold != null) && (
         <>
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3 mt-4">
+          <h4 className="text-xs font-semibold uppercase tracking-wider text-muted mb-3 mt-4">
             DeFi / Borrowing
           </h4>
           <FeeRow
@@ -129,7 +129,7 @@ export default function FeeTable({ fees }: FeeTableProps) {
 
       {(fees.inactivity_fee != null || fees.card_replacement_fee != null) && (
         <>
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3 mt-4">
+          <h4 className="text-xs font-semibold uppercase tracking-wider text-muted mb-3 mt-4">
             Other Fees
           </h4>
           <FeeRow
@@ -144,7 +144,7 @@ export default function FeeTable({ fees }: FeeTableProps) {
       )}
 
       {fees.fee_notes && (
-        <p className="text-xs text-zinc-500 mt-3 italic">{fees.fee_notes}</p>
+        <p className="text-xs text-muted mt-3 italic">{fees.fee_notes}</p>
       )}
     </div>
   );

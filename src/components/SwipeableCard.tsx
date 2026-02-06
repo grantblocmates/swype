@@ -10,31 +10,56 @@ interface SwipeableCardProps {
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
   onTap: () => void;
-  isTop: boolean;
-  index: number;
+  direction: number;
 }
 
-const SWIPE_THRESHOLD = 120;
+const SWIPE_THRESHOLD = 100;
+
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : direction < 0 ? -300 : 0,
+    opacity: 0,
+    scale: 0.95,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? 400 : -400,
+    opacity: 0,
+    rotate: direction > 0 ? 12 : -12,
+    scale: 0.95,
+    transition: { duration: 0.3 },
+  }),
+};
 
 export default function SwipeableCard({
   card,
   onSwipeLeft,
   onSwipeRight,
   onTap,
-  isTop,
-  index,
+  direction,
 }: SwipeableCardProps) {
   const x = useMotionValue(0);
-  const rotate = useTransform(x, [-300, 0, 300], [-15, 0, 15]);
-  const opacity = useTransform(
-    x,
-    [-300, -100, 0, 100, 300],
-    [0.5, 1, 1, 1, 0.5]
-  );
+  const rotate = useTransform(x, [-300, 0, 300], [-12, 0, 12]);
 
   // Indicator opacities
-  const saveOpacity = useTransform(x, [0, 80, 150], [0, 0.5, 1]);
-  const skipOpacity = useTransform(x, [-150, -80, 0], [1, 0.5, 0]);
+  const saveOpacity = useTransform(x, [0, 60, 130], [0, 0.4, 1]);
+  const skipOpacity = useTransform(x, [-130, -60, 0], [1, 0.4, 0]);
+
+  // Save/skip tint overlays
+  const saveBg = useTransform(
+    x,
+    [0, 60, 150],
+    ["rgba(64,112,118,0)", "rgba(64,112,118,0.03)", "rgba(64,112,118,0.08)"]
+  );
+  const skipBg = useTransform(
+    x,
+    [-150, -60, 0],
+    ["rgba(165,63,43,0.08)", "rgba(165,63,43,0.03)", "rgba(165,63,43,0)"]
+  );
 
   function handleDragEnd(_: any, info: PanInfo) {
     const offset = info.offset.x;
@@ -47,63 +72,53 @@ export default function SwipeableCard({
     }
   }
 
-  // Stack effect: cards behind are slightly scaled down and offset
-  const stackScale = 1 - index * 0.04;
-  const stackY = index * 8;
-
   return (
     <motion.div
-      className="absolute inset-0 cursor-grab active:cursor-grabbing"
+      className="cursor-grab active:cursor-grabbing"
+      custom={direction}
+      variants={variants}
+      initial="enter"
+      animate="center"
+      exit="exit"
       style={{
-        x: isTop ? x : 0,
-        rotate: isTop ? rotate : 0,
-        opacity: isTop ? opacity : 1,
-        scale: stackScale,
-        y: stackY,
-        zIndex: 50 - index,
+        x,
+        rotate,
       }}
-      drag={isTop ? "x" : false}
+      drag="x"
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.9}
-      onDragEnd={isTop ? handleDragEnd : undefined}
-      onClick={isTop ? onTap : undefined}
-      initial={isTop ? { scale: 0.95, opacity: 0 } : false}
-      animate={{
-        scale: stackScale,
-        y: stackY,
-        opacity: index < 4 ? 1 : 0,
-      }}
-      exit={{
-        x: x.get() > 0 ? 400 : -400,
-        opacity: 0,
-        rotate: x.get() > 0 ? 20 : -20,
-        transition: { duration: 0.3 },
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      onDragEnd={handleDragEnd}
+      onClick={onTap}
+      transition={{ type: "spring", stiffness: 300, damping: 28 }}
     >
       {/* Swipe indicators */}
-      {isTop && (
-        <>
-          <motion.div
-            className="absolute top-6 right-6 z-10 flex items-center gap-2 rounded-full bg-success/90 px-4 py-2 text-white font-bold shadow-lg"
-            style={{ opacity: saveOpacity }}
-          >
-            <Heart className="w-5 h-5" />
-            SAVE
-          </motion.div>
-          <motion.div
-            className="absolute top-6 left-6 z-10 flex items-center gap-2 rounded-full bg-danger/90 px-4 py-2 text-white font-bold shadow-lg"
-            style={{ opacity: skipOpacity }}
-          >
-            <X className="w-5 h-5" />
-            SKIP
-          </motion.div>
-        </>
-      )}
+      <motion.div
+        className="absolute top-6 right-6 z-10 flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-white font-bold shadow-lg"
+        style={{ opacity: saveOpacity }}
+      >
+        <Heart className="w-5 h-5" />
+        SAVE
+      </motion.div>
+      <motion.div
+        className="absolute top-6 left-6 z-10 flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-white font-bold shadow-lg"
+        style={{ opacity: skipOpacity }}
+      >
+        <X className="w-5 h-5" />
+        SKIP
+      </motion.div>
 
-      <div className="bg-card-bg border border-card-border rounded-3xl p-6 shadow-xl h-full">
-        <CardPreview card={card} />
-      </div>
+      <motion.div
+        className="bg-card-bg border border-card-border rounded-3xl p-6 shadow-card-lg relative overflow-hidden"
+        style={{ background: saveBg }}
+      >
+        <motion.div
+          className="absolute inset-0 pointer-events-none rounded-3xl"
+          style={{ background: skipBg }}
+        />
+        <div className="relative">
+          <CardPreview card={card} />
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
