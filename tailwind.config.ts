@@ -32,11 +32,11 @@ const config: Config = {
         "3xl": "20px",
       },
       boxShadow: {
-        card: "0 1px 3px rgba(20, 17, 15, 0.06), 0 4px 12px rgba(20, 17, 15, 0.04)",
+        card: "0 1px 3px rgba(20, 17, 15, 0.08), 0 4px 14px rgba(20, 17, 15, 0.06)",
         "card-hover":
-          "0 2px 8px rgba(20, 17, 15, 0.08), 0 8px 24px rgba(20, 17, 15, 0.06)",
+          "0 4px 12px rgba(20, 17, 15, 0.10), 0 10px 28px rgba(20, 17, 15, 0.08)",
         "card-lg":
-          "0 4px 16px rgba(20, 17, 15, 0.08), 0 12px 32px rgba(20, 17, 15, 0.06)",
+          "0 6px 20px rgba(20, 17, 15, 0.10), 0 16px 40px rgba(20, 17, 15, 0.08)",
       },
     },
   },

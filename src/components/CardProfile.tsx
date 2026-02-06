@@ -62,7 +62,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
       )}
 
       {/* Hero Section */}
-      <div className="max-w-xs mx-auto mb-6">
+      <div className="max-w-xs mx-auto mb-8">
         <CardVisual
           name={card.name}
           issuer={card.issuer}
@@ -73,7 +73,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
         />
       </div>
 
-      <div className="text-center mb-6">
+      <div className="text-center mb-8">
         <CardTypeBadge type={card.card_type} size="md" />
         <h1 className="text-2xl font-bold text-foreground mt-3">{card.name}</h1>
         <p className="text-sm text-muted mt-1">by {card.issuer}</p>
@@ -85,7 +85,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
       </div>
 
       {/* CTAs */}
-      <div className="flex gap-3 mb-8 max-w-sm mx-auto">
+      <div className="flex gap-3 mb-10 max-w-sm mx-auto">
         {card.ref_link && (
           <button
             onClick={handleRefClick}
@@ -114,7 +114,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
       </div>
 
       {/* Tier Selector */}
-      <div className="mb-6">
+      <div className="mb-8">
         <TierSelector
           tiers={card.tiers}
           selectedTierId={selectedTierId}
@@ -123,7 +123,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
       </div>
 
       {/* Content Sections */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         <Section title="Fees">
           <FeeTable fees={selectedTier?.fees || null} />
         </Section>
@@ -216,8 +216,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-card-bg border border-card-border rounded-2xl p-5 shadow-card">
-      <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">{title}</h3>
+    <div className="bg-card-bg border border-card-border rounded-2xl p-6 shadow-card">
+      <h3 className="text-sm font-semibold text-foreground mb-5 uppercase tracking-wider">{title}</h3>
       {children}
     </div>
   );

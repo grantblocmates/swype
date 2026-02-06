@@ -15,7 +15,7 @@ export default function CardDetailClient({ card }: CardDetailClientProps) {
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="max-w-2xl mx-auto px-4 py-8">
+      <main className="max-w-2xl mx-auto px-4 py-10">
         <CardProfile card={card} onClose={() => router.back()} />
       </main>
     </div>

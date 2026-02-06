@@ -14,7 +14,7 @@ export default function Header() {
   const { savedCount } = useSavedCards();
 
   return (
-    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl border-b border-card-border">
+    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl border-b border-card-border shadow-[0_1px_4px_rgba(20,17,15,0.05)]">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">

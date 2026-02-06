@@ -38,10 +38,10 @@ export default function CompareClient() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="max-w-5xl mx-auto px-4 py-8">
-        <div className="mb-8">
+      <main className="max-w-5xl mx-auto px-4 py-10">
+        <div className="mb-10">
           <h1 className="text-2xl font-bold text-foreground">Compare Cards</h1>
-          <p className="text-muted text-sm mt-1">
+          <p className="text-muted text-sm mt-2 leading-relaxed">
             Your saved cards side by side. Select different tiers to compare.
           </p>
         </div>
