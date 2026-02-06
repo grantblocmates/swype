@@ -19,7 +19,7 @@ interface SavedCardsContextType {
 
 const SavedCardsContext = createContext<SavedCardsContextType | undefined>(undefined);
 
-const STORAGE_KEY = "cardstack_saved_cards";
+const STORAGE_KEY = "swype_saved_cards";
 
 export function SavedCardsProvider({ children }: { children: React.ReactNode }) {
   const [savedCards, setSavedCards] = useState<SavedCard[]>([]);

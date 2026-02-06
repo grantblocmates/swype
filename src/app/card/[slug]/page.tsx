@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!card) return { title: "Card Not Found" };
 
   return {
-    title: `${card.name} - CardStack by blocmates`,
+    title: `${card.name} - Swype by blocmates`,
     description:
       card.description ||
-      `Compare ${card.name} fees, rewards, and perks on CardStack.`,
+      `Compare ${card.name} fees, rewards, and perks on Swype.`,
   };
 }
 

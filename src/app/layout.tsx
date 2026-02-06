@@ -15,11 +15,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CardStack - Compare Crypto & DeFi Cards | blocmates",
+  title: "Swype - Compare Crypto & DeFi Cards | blocmates",
   description:
     "Compare crypto debit cards, self-custody cards, and DeFi spending cards side by side. Find the best fees, rewards, and perks for your needs.",
   openGraph: {
-    title: "CardStack - Compare Crypto & DeFi Cards | blocmates",
+    title: "Swype - Compare Crypto & DeFi Cards | blocmates",
     description:
       "Compare crypto debit cards, self-custody cards, and DeFi spending cards side by side.",
     type: "website",
