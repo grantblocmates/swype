@@ -19,7 +19,7 @@ import {
   Calendar,
   MapPin,
   Smartphone,
-  X,
+  ArrowLeft,
 } from "lucide-react";
 
 interface CardProfileProps {
@@ -43,7 +43,6 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
 
   function handleRefClick() {
     if (card.ref_link) {
-      // Track via API route
       fetch(`/api/ref/${card.slug}`, { method: "POST" }).catch(() => {});
       window.open(card.ref_link, "_blank");
     }
@@ -51,13 +50,14 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* Close button */}
+      {/* Back button */}
       {onClose && (
         <button
           onClick={onClose}
-          className="fixed top-4 right-4 z-50 w-10 h-10 rounded-full bg-card-bg border border-card-border flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
+          className="mb-6 flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
         >
-          <X className="w-5 h-5" />
+          <ArrowLeft className="w-4 h-4" />
+          Back
         </button>
       )}
 
@@ -75,10 +75,10 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
 
       <div className="text-center mb-6">
         <CardTypeBadge type={card.card_type} size="md" />
-        <h1 className="text-2xl font-bold text-white mt-3">{card.name}</h1>
-        <p className="text-sm text-zinc-400 mt-1">by {card.issuer}</p>
+        <h1 className="text-2xl font-bold text-foreground mt-3">{card.name}</h1>
+        <p className="text-sm text-muted mt-1">by {card.issuer}</p>
         {card.description && (
-          <p className="text-sm text-zinc-300 mt-3 max-w-md mx-auto leading-relaxed">
+          <p className="text-sm text-muted mt-3 max-w-md mx-auto leading-relaxed">
             {card.description}
           </p>
         )}
@@ -89,7 +89,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
         {card.ref_link && (
           <button
             onClick={handleRefClick}
-            className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-accent text-white font-semibold text-sm hover:bg-accent-light transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-colors shadow-card"
           >
             <ExternalLink className="w-4 h-4" />
             Sign Up via blocmates
@@ -99,10 +99,10 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
           onClick={() =>
             saved ? removeCard(card.id) : saveCard(card.id)
           }
-          className={`px-4 py-3 rounded-xl border text-sm font-medium transition-colors ${
+          className={`px-4 py-3 rounded-2xl border text-sm font-medium transition-colors ${
             saved
-              ? "bg-success/10 border-success/30 text-success"
-              : "bg-white/5 border-white/10 text-zinc-400 hover:text-white"
+              ? "bg-accent/10 border-accent/30 text-accent"
+              : "bg-card-bg border-card-border text-muted hover:text-foreground hover:border-foreground/20"
           }`}
         >
           {saved ? (
@@ -123,30 +123,25 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
       </div>
 
       {/* Content Sections */}
-      <div className="space-y-6">
-        {/* Fees */}
+      <div className="space-y-4">
         <Section title="Fees">
           <FeeTable fees={selectedTier?.fees || null} />
         </Section>
 
-        {/* Rewards */}
         <Section title="Rewards">
           <RewardsDisplay rewards={selectedTier?.rewards || null} />
         </Section>
 
-        {/* Perks */}
         <Section title="Perks & Benefits">
           <PerksList perks={selectedTier?.perks || []} />
         </Section>
 
-        {/* Supported Assets */}
         {card.supported_assets.length > 0 && (
           <Section title="Supported Assets">
             <AssetGrid assets={card.supported_assets} />
           </Section>
         )}
 
-        {/* Chain Support */}
         {card.supported_chains.length > 0 && (
           <Section title="Supported Chains">
             <div className="flex flex-wrap gap-2">
@@ -157,11 +152,10 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
           </Section>
         )}
 
-        {/* About */}
         <Section title="About">
           <div className="space-y-3">
             {card.long_description && (
-              <p className="text-sm text-zinc-300 leading-relaxed">
+              <p className="text-sm text-foreground/80 leading-relaxed">
                 {card.long_description}
               </p>
             )}
@@ -222,8 +216,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-card-bg border border-card-border rounded-2xl p-5">
-      <h3 className="text-sm font-semibold text-white mb-4">{title}</h3>
+    <div className="bg-card-bg border border-card-border rounded-2xl p-5 shadow-card">
+      <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">{title}</h3>
       {children}
     </div>
   );
@@ -240,12 +234,12 @@ function InfoItem({
 }) {
   return (
     <div className="flex items-start gap-2">
-      <span className="text-zinc-500 mt-0.5">{icon}</span>
+      <span className="text-muted mt-0.5">{icon}</span>
       <div>
-        <p className="text-[10px] uppercase tracking-wider text-zinc-500">
+        <p className="text-[10px] uppercase tracking-wider text-muted font-medium">
           {label}
         </p>
-        <p className="text-sm text-white">{value}</p>
+        <p className="text-sm text-foreground">{value}</p>
       </div>
     </div>
   );

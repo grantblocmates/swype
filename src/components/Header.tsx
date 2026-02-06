@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSavedCards } from "@/context/SavedCardsContext";
-import { Layers } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Browse" },
@@ -15,31 +14,30 @@ export default function Header() {
   const { savedCount } = useSavedCards();
 
   return (
-    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-white/5">
+    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl border-b border-card-border">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Layers className="w-5 h-5 text-accent" />
-          <span className="font-bold text-white text-sm">
+          <span className="font-bold text-foreground text-lg tracking-tight">
             Swype
           </span>
-          <span className="text-[10px] text-zinc-500 font-medium">
+          <span className="text-[10px] text-muted font-medium">
             by blocmates
           </span>
         </Link>
 
         {/* Nav */}
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-1.5">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                   isActive
-                    ? "bg-white/10 text-white"
-                    : "text-zinc-400 hover:text-white hover:bg-white/5"
+                    ? "bg-foreground text-background border-foreground"
+                    : "text-muted border-card-border hover:text-foreground hover:border-foreground/30"
                 }`}
               >
                 {item.label}

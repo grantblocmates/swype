@@ -40,7 +40,6 @@ export default function CardVisual({
   card_network,
   custody_model,
   card_color,
-  compact = false,
 }: CardVisualProps) {
   const gradient = gradientMap[card_type];
   const customBg = card_color
@@ -49,9 +48,9 @@ export default function CardVisual({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl ${
-        compact ? "w-full aspect-[1.586/1]" : "w-full aspect-[1.586/1]"
-      } ${!customBg ? `bg-gradient-to-br ${gradient}` : ""}`}
+      className={`relative overflow-hidden rounded-2xl shadow-card-lg w-full aspect-[1.586/1] ${
+        !customBg ? `bg-gradient-to-br ${gradient}` : ""
+      }`}
       style={customBg}
     >
       {/* Subtle pattern overlay */}
@@ -60,7 +59,7 @@ export default function CardVisual({
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%)",
+              "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%)",
           }}
         />
       </div>
@@ -77,7 +76,7 @@ export default function CardVisual({
               {name}
             </h3>
           </div>
-          <CardTypeBadge type={card_type} />
+          <CardTypeBadge type={card_type} variant="on-card" />
         </div>
 
         {/* Bottom row: custody icon + network */}

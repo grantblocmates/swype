@@ -40,8 +40,8 @@ export default function CompareClient() {
       <Header />
       <main className="max-w-5xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-white">Compare Cards</h1>
-          <p className="text-zinc-400 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Compare Cards</h1>
+          <p className="text-muted text-sm mt-1">
             Your saved cards side by side. Select different tiers to compare.
           </p>
         </div>
