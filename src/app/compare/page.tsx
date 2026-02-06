@@ -2,7 +2,7 @@ import CompareClient from "./CompareClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Compare Cards - CardStack by blocmates",
+  title: "Compare Cards - Swype by blocmates",
   description: "Compare your saved crypto cards side by side.",
 };
 

@@ -21,7 +21,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2">
           <Layers className="w-5 h-5 text-accent" />
           <span className="font-bold text-white text-sm">
-            CardStack
+            Swype
           </span>
           <span className="text-[10px] text-zinc-500 font-medium">
             by blocmates

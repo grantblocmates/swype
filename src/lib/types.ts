@@ -1,5 +1,5 @@
 // ============================================================
-// CardStack - TypeScript Interfaces
+// Swype - TypeScript Interfaces
 // Matches Supabase PostgreSQL schema defined in database.sql
 // ============================================================
 
@@ -122,7 +122,7 @@ export interface Reward {
   cashback_is_token: boolean;
   has_points_program: boolean;
   points_per_spend: number | null;
-  points_spend_unit: string | null;
+  points_spend_unit: number | null;
   points_currency: string | null;
   points_name: string | null;
   category_bonuses: CategoryBonus[];
