@@ -1,10 +1,11 @@
-import { getAllCards } from "@/lib/queries";
-import HomeClient from "./HomeClient";
+import QuizClient from "./QuizClient";
 
-export const dynamic = "force-dynamic";
+export const metadata = {
+  title: "Swype - Find Your Perfect Crypto Card | blocmates",
+  description:
+    "Answer 4 quick questions and we'll match you with the best crypto and DeFi cards for your needs. Compare cashback, fees, and features side by side.",
+};
 
-export default async function HomePage() {
-  const cards = await getAllCards();
-
-  return <HomeClient cards={cards} />;
+export default function HomePage() {
+  return <QuizClient />;
 }

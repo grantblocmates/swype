@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSavedCards } from "@/context/SavedCardsContext";
 
 const navItems = [
-  { href: "/", label: "Browse" },
+  { href: "/browse", label: "Browse" },
   { href: "/compare", label: "Compare" },
 ];
 

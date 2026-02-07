@@ -2,15 +2,16 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { CardPreviewData } from "@/lib/types";
+import type { TierCardPreview } from "@/lib/types";
 import SwipeableCard from "./SwipeableCard";
+import CardVisual from "./CardVisual";
 import { useSavedCards } from "@/context/SavedCardsContext";
 import { Heart, RotateCcw, X } from "lucide-react";
 import Link from "next/link";
 
 interface SwipeCarouselProps {
-  cards: CardPreviewData[];
-  onCardTap: (card: CardPreviewData) => void;
+  cards: TierCardPreview[];
+  onCardTap: (card: TierCardPreview) => void;
 }
 
 export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) {
@@ -29,8 +30,8 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
   const handleSwipeRight = useCallback(() => {
     if (currentIndex >= cards.length) return;
     const card = cards[currentIndex];
-    if (card && !isCardSaved(card.id)) {
-      saveCard(card.id);
+    if (card && !isCardSaved(card.slug)) {
+      saveCard(card.slug);
     }
     setDirection(1);
     setHistory((prev) => [...prev, currentIndex]);
@@ -128,7 +129,7 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
               <AnimatePresence mode="wait" custom={direction}>
                 {currentCard && (
                   <SwipeableCard
-                    key={currentCard.id}
+                    key={currentCard.slug}
                     card={currentCard}
                     onSwipeLeft={handleSwipeLeft}
                     onSwipeRight={handleSwipeRight}
@@ -191,20 +192,19 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
 }
 
 // Simplified card preview for the peek slots
-import CardVisual from "./CardVisual";
-
-function CardPreviewMini({ card }: { card: CardPreviewData }) {
+function CardPreviewMini({ card }: { card: TierCardPreview }) {
   return (
     <div className="w-full">
       <CardVisual
-        name={card.name}
+        name={card.displayName}
         issuer={card.issuer}
         card_type={card.card_type}
         card_network={card.card_network}
         custody_model={card.custody_model}
+        card_color={card.card_color}
       />
       <div className="mt-3 text-center">
-        <p className="text-sm font-semibold text-foreground truncate">{card.name}</p>
+        <p className="text-sm font-semibold text-foreground truncate">{card.displayName}</p>
         <p className="text-xs text-muted">{card.issuer}</p>
       </div>
     </div>

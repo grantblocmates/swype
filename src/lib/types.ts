@@ -217,3 +217,100 @@ export interface CardPreviewData {
   cashback_percent: number | null;
   fx_markup_percent: number | null;
 }
+
+// ---- Tier-split types (each tier is a standalone card entry) ----
+
+/** A single tier flattened into a standalone card entry for browse/compare/quiz */
+export interface TierCard {
+  // Composite identifiers
+  tierId: string;
+  cardId: string;
+  slug: string; // combined: "etherfi-standard" or "revolut" for single-tier
+  displayName: string; // "EtherFi Standard" or "Revolut" for single-tier
+
+  // Card-level fields
+  issuer: string;
+  card_type: CardType;
+  card_network: CardNetwork;
+  custody_model: CustodyModel;
+  supported_chains: string[];
+  supported_countries: string[];
+  kyc_required: boolean;
+  apple_pay: boolean;
+  google_pay: boolean;
+  has_native_token: boolean;
+  token_ticker: string | null;
+  description: string | null;
+  long_description: string | null;
+  card_image_url: string | null;
+  logo_url: string | null;
+  ref_link: string | null;
+  ref_link_slug: string | null;
+  website_url: string | null;
+  blocmates_article_url: string | null;
+  year_launched: number | null;
+
+  // Tier-level fields
+  tierName: string;
+  monthly_fee: number | null;
+  annual_fee: number | null;
+  staking_required: boolean;
+  staking_amount: number | null;
+  staking_token: string | null;
+  card_color: string | null;
+
+  // Detail data
+  fees: Fee | null;
+  rewards: Reward | null;
+  perks: Perk[];
+  supported_assets: SupportedAsset[];
+
+  // Sort order
+  display_order: number;
+  tier_order: number;
+}
+
+/** Lightweight tier-card preview for carousels and quiz results */
+export interface TierCardPreview {
+  tierId: string;
+  cardId: string;
+  slug: string;
+  displayName: string;
+  issuer: string;
+  description: string | null;
+  card_type: CardType;
+  card_network: CardNetwork;
+  custody_model: CustodyModel;
+  supported_chains: string[];
+  supported_countries: string[];
+  apple_pay: boolean;
+  google_pay: boolean;
+  kyc_required: boolean;
+  card_image_url: string | null;
+  logo_url: string | null;
+  card_color: string | null;
+  ref_link: string | null;
+  tierName: string;
+  monthly_fee: number | null;
+  cashback_percent: number | null;
+  fx_markup_percent: number | null;
+  staking_required: boolean;
+  staking_amount: number | null;
+  staking_token: string | null;
+  display_order: number;
+  tier_order: number;
+}
+
+// ---- Quiz types ----
+
+export type QuizRegion = 'US' | 'EU' | 'UK' | 'OTHER';
+export type QuizPriority = 'cashback' | 'self_custody' | 'no_fees' | 'borrow';
+export type QuizStaking = 'yes' | 'no' | 'unsure';
+export type QuizUsage = 'everyday' | 'travel' | 'atm' | 'trying';
+
+export interface QuizAnswers {
+  region: QuizRegion | null;
+  priorities: QuizPriority[];
+  staking: QuizStaking | null;
+  usage: QuizUsage[];
+}

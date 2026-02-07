@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import type { CardWithDetails } from "@/lib/types";
+import type { TierCard } from "@/lib/types";
 import Header from "@/components/Header";
 import CardProfile from "@/components/CardProfile";
 
 interface CardDetailClientProps {
-  card: CardWithDetails;
+  card: TierCard;
 }
 
 export default function CardDetailClient({ card }: CardDetailClientProps) {

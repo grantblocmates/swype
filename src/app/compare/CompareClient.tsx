@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import ComparisonView from "@/components/ComparisonView";
 import { useSavedCards } from "@/context/SavedCardsContext";
-import { getCardsForComparison } from "@/lib/queries";
-import type { CardWithDetails } from "@/lib/types";
+import { getTierCardsBySlugs } from "@/lib/queries";
+import type { TierCard } from "@/lib/types";
 import { Loader2 } from "lucide-react";
 
 export default function CompareClient() {
   const { savedCards } = useSavedCards();
-  const [cards, setCards] = useState<CardWithDetails[]>([]);
+  const [cards, setCards] = useState<TierCard[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,8 +22,8 @@ export default function CompareClient() {
       }
 
       try {
-        const ids = savedCards.map((s) => s.cardId);
-        const data = await getCardsForComparison(ids);
+        const slugs = savedCards.map((s) => s.cardId);
+        const data = await getTierCardsBySlugs(slugs);
         setCards(data);
       } catch (err) {
         console.error("Failed to fetch comparison cards:", err);
@@ -42,7 +42,7 @@ export default function CompareClient() {
         <div className="mb-10">
           <h1 className="text-2xl font-bold text-foreground">Compare Cards</h1>
           <p className="text-muted text-sm mt-2 leading-relaxed">
-            Your saved cards side by side. Select different tiers to compare.
+            Your saved cards side by side.
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-import { getCardBySlug } from "@/lib/queries";
+import { getTierCardBySlug } from "@/lib/queries";
 import CardDetailClient from "./CardDetailClient";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -10,19 +10,19 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const card = await getCardBySlug(params.slug);
+  const card = await getTierCardBySlug(params.slug);
   if (!card) return { title: "Card Not Found" };
 
   return {
-    title: `${card.name} - Swype by blocmates`,
+    title: `${card.displayName} - Swype by blocmates`,
     description:
       card.description ||
-      `Compare ${card.name} fees, rewards, and perks on Swype.`,
+      `Compare ${card.displayName} fees, rewards, and perks on Swype.`,
   };
 }
 
 export default async function CardDetailPage({ params }: Props) {
-  const card = await getCardBySlug(params.slug);
+  const card = await getTierCardBySlug(params.slug);
 
   if (!card) {
     notFound();

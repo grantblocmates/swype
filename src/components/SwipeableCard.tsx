@@ -1,12 +1,12 @@
 "use client";
 
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
-import type { CardPreviewData } from "@/lib/types";
+import type { TierCardPreview } from "@/lib/types";
 import CardPreview from "./CardPreview";
 import { Heart, X } from "lucide-react";
 
 interface SwipeableCardProps {
-  card: CardPreviewData;
+  card: TierCardPreview;
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
   onTap: () => void;
