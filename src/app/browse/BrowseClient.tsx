@@ -1,19 +1,19 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import type { CardPreviewData } from "@/lib/types";
+import type { TierCardPreview } from "@/lib/types";
 import Header from "@/components/Header";
 import SwipeCarousel from "@/components/SwipeCarousel";
 import { Sparkles } from "lucide-react";
 
-interface HomeClientProps {
-  cards: CardPreviewData[];
+interface BrowseClientProps {
+  cards: TierCardPreview[];
 }
 
-export default function HomeClient({ cards }: HomeClientProps) {
+export default function BrowseClient({ cards }: BrowseClientProps) {
   const router = useRouter();
 
-  function handleCardTap(card: CardPreviewData) {
+  function handleCardTap(card: TierCardPreview) {
     router.push(`/card/${card.slug}`);
   }
 
@@ -25,7 +25,7 @@ export default function HomeClient({ cards }: HomeClientProps) {
         {/* Hero */}
         <div className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
-            Find your perfect crypto card
+            Browse All Cards
           </h1>
           <p className="text-muted text-sm mt-3 max-w-md mx-auto leading-relaxed">
             Swipe right to save, left to skip. Tap a card for full details.

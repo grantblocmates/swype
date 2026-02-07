@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import type { CardWithDetails, TierWithDetails } from "@/lib/types";
+import type { TierCard } from "@/lib/types";
 import CardVisual from "./CardVisual";
 import CardTypeBadge from "./CardTypeBadge";
-import TierSelector from "./TierSelector";
 import FeeTable from "./FeeTable";
 import RewardsDisplay from "./RewardsDisplay";
 import PerksList from "./PerksList";
@@ -23,23 +21,13 @@ import {
 } from "lucide-react";
 
 interface CardProfileProps {
-  card: CardWithDetails;
+  card: TierCard;
   onClose?: () => void;
 }
 
 export default function CardProfile({ card, onClose }: CardProfileProps) {
-  const defaultTier =
-    card.tiers.find((t) => t.is_default) || card.tiers[0];
-  const [selectedTierId, setSelectedTierId] = useState(
-    defaultTier?.id || ""
-  );
-
-  const selectedTier: TierWithDetails | undefined = card.tiers.find(
-    (t) => t.id === selectedTierId
-  );
-
   const { saveCard, removeCard, isCardSaved } = useSavedCards();
-  const saved = isCardSaved(card.id);
+  const saved = isCardSaved(card.slug);
 
   function handleRefClick() {
     if (card.ref_link) {
@@ -64,18 +52,18 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
       {/* Hero Section */}
       <div className="max-w-xs mx-auto mb-8">
         <CardVisual
-          name={card.name}
+          name={card.displayName}
           issuer={card.issuer}
           card_type={card.card_type}
           card_network={card.card_network}
           custody_model={card.custody_model}
-          card_color={selectedTier?.card_color}
+          card_color={card.card_color}
         />
       </div>
 
       <div className="text-center mb-8">
         <CardTypeBadge type={card.card_type} size="md" />
-        <h1 className="text-2xl font-bold text-foreground mt-3">{card.name}</h1>
+        <h1 className="text-2xl font-bold text-foreground mt-3">{card.displayName}</h1>
         <p className="text-sm text-muted mt-1">by {card.issuer}</p>
         {card.description && (
           <p className="text-sm text-muted mt-3 max-w-md mx-auto leading-relaxed">
@@ -97,7 +85,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
         )}
         <button
           onClick={() =>
-            saved ? removeCard(card.id) : saveCard(card.id)
+            saved ? removeCard(card.slug) : saveCard(card.slug)
           }
           className={`px-4 py-3 rounded-2xl border text-sm font-medium transition-colors ${
             saved
@@ -113,27 +101,44 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
         </button>
       </div>
 
-      {/* Tier Selector */}
-      <div className="mb-8">
-        <TierSelector
-          tiers={card.tiers}
-          selectedTierId={selectedTierId}
-          onSelect={setSelectedTierId}
+      {/* Key Stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <QuickStat
+          label="Monthly"
+          value={card.monthly_fee === 0 || card.monthly_fee == null ? "Free" : `$${card.monthly_fee}/mo`}
+        />
+        <QuickStat
+          label="Annual Fee"
+          value={card.annual_fee === 0 || card.annual_fee == null ? "None" : `$${card.annual_fee}/yr`}
+        />
+        <QuickStat
+          label="Staking"
+          value={
+            !card.staking_required
+              ? "None"
+              : card.staking_amount && card.staking_token
+              ? `${card.staking_amount.toLocaleString()} ${card.staking_token}`
+              : "Required"
+          }
+        />
+        <QuickStat
+          label="Cashback"
+          value={card.rewards?.cashback_percent != null ? `${card.rewards.cashback_percent}%` : "\u2014"}
         />
       </div>
 
       {/* Content Sections */}
       <div className="space-y-6">
         <Section title="Fees">
-          <FeeTable fees={selectedTier?.fees || null} />
+          <FeeTable fees={card.fees} />
         </Section>
 
         <Section title="Rewards">
-          <RewardsDisplay rewards={selectedTier?.rewards || null} />
+          <RewardsDisplay rewards={card.rewards} />
         </Section>
 
         <Section title="Perks & Benefits">
-          <PerksList perks={selectedTier?.perks || []} />
+          <PerksList perks={card.perks} />
         </Section>
 
         {card.supported_assets.length > 0 && (
@@ -204,6 +209,15 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
           </div>
         </Section>
       </div>
+    </div>
+  );
+}
+
+function QuickStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="bg-card-bg border border-card-border rounded-xl px-3 py-3 shadow-card">
+      <p className="text-[10px] uppercase tracking-wider text-muted font-medium mb-1">{label}</p>
+      <p className="text-sm font-bold text-foreground">{value}</p>
     </div>
   );
 }

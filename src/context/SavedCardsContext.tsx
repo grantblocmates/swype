@@ -3,16 +3,15 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 interface SavedCard {
-  cardId: string;
-  tierId?: string;
+  cardId: string; // Now stores tier-card slug (e.g., "etherfi-standard")
   savedAt: string;
 }
 
 interface SavedCardsContextType {
   savedCards: SavedCard[];
-  saveCard: (cardId: string, tierId?: string) => void;
-  removeCard: (cardId: string) => void;
-  isCardSaved: (cardId: string) => boolean;
+  saveCard: (slug: string) => void;
+  removeCard: (slug: string) => void;
+  isCardSaved: (slug: string) => boolean;
   clearAll: () => void;
   savedCount: number;
 }
@@ -41,19 +40,19 @@ export function SavedCardsProvider({ children }: { children: React.ReactNode }) 
     }
   }, [savedCards, hydrated]);
 
-  const saveCard = useCallback((cardId: string, tierId?: string) => {
+  const saveCard = useCallback((slug: string) => {
     setSavedCards((prev) => {
-      if (prev.some((c) => c.cardId === cardId)) return prev;
-      return [...prev, { cardId, tierId, savedAt: new Date().toISOString() }];
+      if (prev.some((c) => c.cardId === slug)) return prev;
+      return [...prev, { cardId: slug, savedAt: new Date().toISOString() }];
     });
   }, []);
 
-  const removeCard = useCallback((cardId: string) => {
-    setSavedCards((prev) => prev.filter((c) => c.cardId !== cardId));
+  const removeCard = useCallback((slug: string) => {
+    setSavedCards((prev) => prev.filter((c) => c.cardId !== slug));
   }, []);
 
   const isCardSaved = useCallback(
-    (cardId: string) => savedCards.some((c) => c.cardId === cardId),
+    (slug: string) => savedCards.some((c) => c.cardId === slug),
     [savedCards]
   );
 
