@@ -23,8 +23,8 @@ export default function QuizOption({
       whileTap={{ scale: 0.97 }}
       className={`w-full text-left rounded-2xl p-6 border-2 transition-colors ${
         selected
-          ? "bg-accent border-accent text-white shadow-card-hover"
-          : "bg-card-bg border-card-border text-foreground shadow-card hover:border-accent/40 hover:shadow-card-hover"
+          ? "bg-primary border-primary text-white shadow-card-hover"
+          : "bg-card-bg border-card-border text-foreground shadow-card hover:border-primary/40 hover:shadow-card-hover"
       }`}
     >
       <span className="text-2xl mb-2 block">{emoji}</span>

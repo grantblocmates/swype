@@ -1,5 +1,5 @@
 import type { Reward, CategoryBonus } from "@/lib/types";
-import { Gift, AlertTriangle, Sparkles } from "lucide-react";
+import { Gift, Warning, Sparkle } from "@phosphor-icons/react";
 
 interface RewardsDisplayProps {
   rewards: Reward | null;
@@ -18,8 +18,8 @@ export default function RewardsDisplay({ rewards }: RewardsDisplayProps) {
     <div className="space-y-4">
       {/* Cashback */}
       {rewards.cashback_percent != null && (
-        <div className="flex items-start gap-3 p-3 rounded-xl bg-accent/5 border border-accent/10">
-          <Gift className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+        <div className="flex items-start gap-3 p-3 rounded-xl bg-accent-emerald/5 border border-accent-emerald/10">
+          <Gift className="w-5 h-5 text-accent-emerald mt-0.5 flex-shrink-0" weight="duotone" />
           <div>
             <p className="text-sm font-semibold text-foreground">
               {rewards.cashback_percent}% Cashback
@@ -38,8 +38,8 @@ export default function RewardsDisplay({ rewards }: RewardsDisplayProps) {
 
       {/* Points Program */}
       {rewards.has_points_program && (
-        <div className="flex items-start gap-3 p-3 rounded-xl bg-purple-50 border border-purple-100">
-          <Sparkles className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
+        <div className="flex items-start gap-3 p-3 rounded-xl bg-accent-grape/5 border border-accent-grape/10">
+          <Sparkle className="w-5 h-5 text-accent-grape mt-0.5 flex-shrink-0" weight="duotone" />
           <div>
             <p className="text-sm font-semibold text-foreground">
               {rewards.points_name || "Points Program"}
@@ -73,7 +73,7 @@ export default function RewardsDisplay({ rewards }: RewardsDisplayProps) {
                     <span className="text-xs text-foreground/80 capitalize">
                       {bonus.category}
                     </span>
-                    <span className="text-xs font-semibold text-accent">
+                    <span className="text-xs font-semibold text-accent-emerald">
                       {bonus.percent}%
                     </span>
                   </div>
@@ -85,10 +85,10 @@ export default function RewardsDisplay({ rewards }: RewardsDisplayProps) {
 
       {/* Sustainability Warning */}
       {(rewards.is_promotional || rewards.is_subsidized) && (
-        <div className="flex items-start gap-3 p-3 rounded-xl bg-secondary/5 border border-secondary/10">
-          <AlertTriangle className="w-5 h-5 text-secondary mt-0.5 flex-shrink-0" />
+        <div className="flex items-start gap-3 p-3 rounded-xl bg-accent-ruby/5 border border-accent-ruby/10">
+          <Warning className="w-5 h-5 text-accent-ruby mt-0.5 flex-shrink-0" weight="duotone" />
           <div>
-            <p className="text-sm font-semibold text-secondary">
+            <p className="text-sm font-semibold text-accent-ruby">
               {rewards.is_promotional ? "Promotional Rate" : "Subsidized Rewards"}
             </p>
             <p className="text-xs text-muted mt-0.5">

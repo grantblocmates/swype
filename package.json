@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "@supabase/supabase-js": "^2.95.3",
     "framer-motion": "^12.33.0",
     "lucide-react": "^0.563.0",

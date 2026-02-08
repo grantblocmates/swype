@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@phosphor-icons/react";
 import QuizProgress from "./QuizProgress";
 import QuizOption from "./QuizOption";
 import { answersToParams } from "@/lib/quiz-logic";
@@ -172,7 +172,7 @@ export default function QuizContainer() {
             onClick={handleBack}
             className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" weight="bold" />
             Back
           </button>
         )}
@@ -189,7 +189,7 @@ export default function QuizContainer() {
           exit="exit"
           transition={{ type: "spring", stiffness: 300, damping: 30, duration: 0.3 }}
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl font-display text-foreground text-center mb-8">
             {question.title}
           </h2>
 
@@ -215,7 +215,7 @@ export default function QuizContainer() {
                 disabled={!hasSelection()}
                 className={`px-8 py-3 rounded-full font-semibold text-sm transition-all ${
                   hasSelection()
-                    ? "bg-accent text-white hover:bg-accent-hover shadow-card"
+                    ? "bg-primary text-white hover:bg-primary-hover shadow-card"
                     : "bg-subtle text-muted-light cursor-not-allowed"
                 }`}
               >

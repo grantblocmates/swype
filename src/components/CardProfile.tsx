@@ -10,15 +10,15 @@ import AssetGrid from "./AssetGrid";
 import ChainBadge from "./ChainBadge";
 import { useSavedCards } from "@/context/SavedCardsContext";
 import {
-  ExternalLink,
+  ArrowSquareOut,
   Heart,
-  HeartOff,
+  HeartBreak,
   Globe,
   Calendar,
   MapPin,
-  Smartphone,
+  DeviceMobile,
   ArrowLeft,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 
 interface CardProfileProps {
   card: TierCard;
@@ -44,7 +44,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
           onClick={onClose}
           className="mb-6 flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4" weight="bold" />
           Back
         </button>
       )}
@@ -63,7 +63,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
 
       <div className="text-center mb-8">
         <CardTypeBadge type={card.card_type} size="md" />
-        <h1 className="text-2xl font-bold text-foreground mt-3">{card.displayName}</h1>
+        <h1 className="text-2xl sm:text-3xl font-display text-foreground mt-3">{card.displayName}</h1>
         <p className="text-sm text-muted mt-1">by {card.issuer}</p>
         {card.description && (
           <p className="text-sm text-muted mt-3 max-w-md mx-auto leading-relaxed">
@@ -77,9 +77,9 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
         {card.ref_link && (
           <button
             onClick={handleRefClick}
-            className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-colors shadow-card"
+            className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary-hover transition-colors shadow-card"
           >
-            <ExternalLink className="w-4 h-4" />
+            <ArrowSquareOut className="w-4 h-4" weight="bold" />
             Sign Up via blocmates
           </button>
         )}
@@ -87,16 +87,16 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
           onClick={() =>
             saved ? removeCard(card.slug) : saveCard(card.slug)
           }
-          className={`px-4 py-3 rounded-2xl border text-sm font-medium transition-colors ${
+          className={`px-4 py-3 rounded-full border text-sm font-medium transition-colors ${
             saved
-              ? "bg-accent/10 border-accent/30 text-accent"
+              ? "bg-accent-yellow/10 border-accent-yellow/30 text-accent-yellow"
               : "bg-card-bg border-card-border text-muted hover:text-foreground hover:border-foreground/20"
           }`}
         >
           {saved ? (
-            <HeartOff className="w-5 h-5" />
+            <HeartBreak className="w-5 h-5" weight="fill" />
           ) : (
-            <Heart className="w-5 h-5" />
+            <Heart className="w-5 h-5" weight="bold" />
           )}
         </button>
       </div>
@@ -106,10 +106,12 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
         <QuickStat
           label="Monthly"
           value={card.monthly_fee === 0 || card.monthly_fee == null ? "Free" : `$${card.monthly_fee}/mo`}
+          colorClass="bg-accent-sky/10 text-accent-ocean"
         />
         <QuickStat
           label="Annual Fee"
           value={card.annual_fee === 0 || card.annual_fee == null ? "None" : `$${card.annual_fee}/yr`}
+          colorClass="bg-accent-grape/10 text-accent-lavender"
         />
         <QuickStat
           label="Staking"
@@ -120,10 +122,12 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
               ? `${card.staking_amount.toLocaleString()} ${card.staking_token}`
               : "Required"
           }
+          colorClass="bg-accent-ruby/10 text-accent-ruby"
         />
         <QuickStat
           label="Cashback"
           value={card.rewards?.cashback_percent != null ? `${card.rewards.cashback_percent}%` : "\u2014"}
+          colorClass="bg-accent-emerald/10 text-accent-emerald"
         />
       </div>
 
@@ -167,28 +171,28 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
             <div className="grid grid-cols-2 gap-3">
               {card.year_launched && (
                 <InfoItem
-                  icon={<Calendar className="w-4 h-4" />}
+                  icon={<Calendar className="w-4 h-4" weight="duotone" />}
                   label="Launched"
                   value={card.year_launched.toString()}
                 />
               )}
               {card.supported_countries.length > 0 && (
                 <InfoItem
-                  icon={<MapPin className="w-4 h-4" />}
+                  icon={<MapPin className="w-4 h-4" weight="duotone" />}
                   label="Countries"
                   value={`${card.supported_countries.length} supported`}
                 />
               )}
               {card.website_url && (
                 <InfoItem
-                  icon={<Globe className="w-4 h-4" />}
+                  icon={<Globe className="w-4 h-4" weight="duotone" />}
                   label="Website"
                   value={
                     <a
                       href={card.website_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-accent hover:underline"
+                      className="text-primary hover:underline"
                     >
                       Visit
                     </a>
@@ -196,7 +200,7 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
                 />
               )}
               <InfoItem
-                icon={<Smartphone className="w-4 h-4" />}
+                icon={<DeviceMobile className="w-4 h-4" weight="duotone" />}
                 label="Mobile Pay"
                 value={[
                   card.apple_pay && "Apple Pay",
@@ -213,11 +217,11 @@ export default function CardProfile({ card, onClose }: CardProfileProps) {
   );
 }
 
-function QuickStat({ label, value }: { label: string; value: string }) {
+function QuickStat({ label, value, colorClass }: { label: string; value: string; colorClass: string }) {
   return (
-    <div className="bg-card-bg border border-card-border rounded-xl px-3 py-3 shadow-card">
-      <p className="text-[10px] uppercase tracking-wider text-muted font-medium mb-1">{label}</p>
-      <p className="text-sm font-bold text-foreground">{value}</p>
+    <div className={`rounded-2xl px-3 py-3 ${colorClass}`}>
+      <p className="text-[10px] uppercase tracking-wider font-medium mb-1 opacity-70">{label}</p>
+      <p className="text-sm font-bold">{value}</p>
     </div>
   );
 }
@@ -231,7 +235,7 @@ function Section({
 }) {
   return (
     <div className="bg-card-bg border border-card-border rounded-2xl p-6 shadow-card">
-      <h3 className="text-sm font-semibold text-foreground mb-5 uppercase tracking-wider">{title}</h3>
+      <h3 className="text-sm font-display text-foreground mb-5 uppercase tracking-wider">{title}</h3>
       {children}
     </div>
   );
