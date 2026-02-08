@@ -48,13 +48,13 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
         <div className="flex gap-3 justify-center mt-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-body font-semibold hover:brightness-110 transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-dark text-white text-sm font-display font-semibold shadow-btn hover:brightness-110 transition-all"
           >
             Take the Quiz
           </Link>
           <Link
             href="/browse"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border bg-surface text-dark text-sm font-body font-medium hover:border-primary/40 transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-border-strong text-dark text-sm font-body font-medium hover:border-border-hover hover:shadow-card transition-all"
           >
             Browse Cards
           </Link>
@@ -175,7 +175,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
             <th className="sticky left-0 z-10 bg-background p-2 w-[120px] min-w-[120px]" />
             {cards.map((card) => (
               <th key={card.slug} className="p-3 align-top text-left min-w-[220px]">
-                <div className="bg-card-bg border border-card-border rounded-2xl p-4 shadow-card relative">
+                <div className="bg-white border border-border rounded-3xl p-4 shadow-card relative">
                   <button
                     onClick={() => removeCard(card.slug)}
                     className="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-subtle flex items-center justify-center text-muted hover:text-secondary hover:bg-secondary/10 transition-colors z-10"
@@ -205,7 +205,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                       href={card.ref_link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-3 flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-full bg-primary text-white text-xs font-semibold hover:bg-primary-hover transition-colors"
+                      className="mt-3 flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-2xl bg-primary text-white text-xs font-display font-semibold hover:brightness-110 transition-all"
                     >
                       <ArrowSquareOut className="w-3 h-3" weight="bold" />
                       Sign Up

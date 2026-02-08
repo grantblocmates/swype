@@ -31,6 +31,7 @@ interface OptionDef {
   description?: string;
   icon: ReactNode;
   iconBgClass: string;
+  accentColor: string;
 }
 
 interface QuestionDef {
@@ -50,25 +51,29 @@ const QUESTIONS: QuestionDef[] = [
         value: "US",
         label: "United States",
         icon: <MapPin size={24} weight="duotone" className="text-accent-ruby" />,
-        iconBgClass: "bg-accent-ruby/12",
+        iconBgClass: "bg-accent-ruby/10",
+        accentColor: "#FC6E48",
       },
       {
         value: "EU",
         label: "Europe (EU/EEA)",
         icon: <Globe size={24} weight="duotone" className="text-accent-ocean" />,
-        iconBgClass: "bg-accent-ocean/12",
+        iconBgClass: "bg-accent-ocean/10",
+        accentColor: "#4E76D0",
       },
       {
         value: "UK",
         label: "United Kingdom",
         icon: <MapPin size={24} weight="duotone" className="text-accent-lavender" />,
-        iconBgClass: "bg-accent-lavender/12",
+        iconBgClass: "bg-accent-lavender/10",
+        accentColor: "#4F467F",
       },
       {
         value: "OTHER",
         label: "Somewhere else",
         icon: <Compass size={24} weight="duotone" className="text-accent-emerald" />,
-        iconBgClass: "bg-accent-emerald/12",
+        iconBgClass: "bg-accent-emerald/10",
+        accentColor: "#00936D",
       },
     ],
   },
@@ -82,28 +87,32 @@ const QUESTIONS: QuestionDef[] = [
         label: "Maximum cashback",
         description: "Earn on every purchase",
         icon: <Percent size={24} weight="duotone" className="text-accent-emerald" />,
-        iconBgClass: "bg-accent-emerald/12",
+        iconBgClass: "bg-accent-emerald/10",
+        accentColor: "#00936D",
       },
       {
         value: "self_custody",
         label: "Self-custody (my keys)",
         description: "You hold your own crypto",
         icon: <ShieldCheck size={24} weight="duotone" className="text-accent-ocean" />,
-        iconBgClass: "bg-accent-ocean/12",
+        iconBgClass: "bg-accent-ocean/10",
+        accentColor: "#4E76D0",
       },
       {
         value: "no_fees",
         label: "Low or zero fees",
         description: "Simple and free to use",
         icon: <CurrencyDollar size={24} weight="duotone" className="text-accent-yellow" />,
-        iconBgClass: "bg-accent-yellow/12",
+        iconBgClass: "bg-accent-yellow/10",
+        accentColor: "#FFB500",
       },
       {
         value: "borrow",
         label: "DeFi features",
         description: "Spend without selling",
         icon: <Lightning size={24} weight="duotone" className="text-accent-lavender" />,
-        iconBgClass: "bg-accent-lavender/12",
+        iconBgClass: "bg-accent-lavender/10",
+        accentColor: "#4F467F",
       },
     ],
   },
@@ -117,21 +126,24 @@ const QUESTIONS: QuestionDef[] = [
         label: "Yeah, if the rewards are worth it",
         description: "Higher cashback, more perks",
         icon: <Coins size={24} weight="duotone" className="text-accent-yellow" />,
-        iconBgClass: "bg-accent-yellow/12",
+        iconBgClass: "bg-accent-yellow/10",
+        accentColor: "#FFB500",
       },
       {
         value: "no",
         label: "No, I don\u2019t want to lock anything",
         description: "Keep it simple",
         icon: <HandPalm size={24} weight="duotone" className="text-accent-ruby" />,
-        iconBgClass: "bg-accent-ruby/12",
+        iconBgClass: "bg-accent-ruby/10",
+        accentColor: "#FC6E48",
       },
       {
         value: "unsure",
         label: "Not sure what staking means",
         description: "We\u2019ll keep it beginner-friendly",
         icon: <Sparkle size={24} weight="duotone" className="text-accent-grape" />,
-        iconBgClass: "bg-accent-grape/12",
+        iconBgClass: "bg-accent-grape/10",
+        accentColor: "#8885D2",
       },
     ],
   },
@@ -145,28 +157,32 @@ const QUESTIONS: QuestionDef[] = [
         label: "Everyday spending",
         description: "Groceries, online, subscriptions",
         icon: <ShoppingCart size={24} weight="duotone" className="text-accent-yellow" />,
-        iconBgClass: "bg-accent-yellow/12",
+        iconBgClass: "bg-accent-yellow/10",
+        accentColor: "#FFB500",
       },
       {
         value: "travel",
         label: "Travel & spending abroad",
         description: "Multi-currency, low FX fees",
         icon: <AirplaneTilt size={24} weight="duotone" className="text-accent-ocean" />,
-        iconBgClass: "bg-accent-ocean/12",
+        iconBgClass: "bg-accent-ocean/10",
+        accentColor: "#4E76D0",
       },
       {
         value: "atm",
         label: "ATM cash withdrawals",
         description: "Free or cheap cash access",
         icon: <Bank size={24} weight="duotone" className="text-accent-emerald" />,
-        iconBgClass: "bg-accent-emerald/12",
+        iconBgClass: "bg-accent-emerald/10",
+        accentColor: "#00936D",
       },
       {
         value: "trying",
         label: "Just trying crypto spending",
         description: "Easy onboarding, no commitment",
         icon: <Sparkle size={24} weight="duotone" className="text-accent-grape" />,
-        iconBgClass: "bg-accent-grape/12",
+        iconBgClass: "bg-accent-grape/10",
+        accentColor: "#8885D2",
       },
     ],
   },
@@ -215,13 +231,11 @@ export default function QuizContainer() {
       } else {
         setAnswers((prev) => ({ ...prev, [qid]: value }));
 
-        // Auto-advance after brief delay for single-select
         setTimeout(() => {
           if (step < QUESTIONS.length - 1) {
             setDirection(1);
             setStep((s) => s + 1);
           } else {
-            // Last question - go to results
             const finalAnswers = { ...answers, [qid]: value };
             router.push(`/results?${answersToParams(finalAnswers as QuizAnswers)}`);
           }
@@ -269,14 +283,14 @@ export default function QuizContainer() {
   };
 
   return (
-    <div className="max-w-xl mx-auto px-4">
+    <div className="max-w-[640px] mx-auto px-4">
       {/* Progress */}
-      <div className="mb-12">
+      <div className="mb-14">
         <QuizProgress currentStep={step} totalSteps={QUESTIONS.length} />
       </div>
 
       {/* Back button */}
-      <div className="h-8 mb-6">
+      <div className="h-8 mb-8">
         {step > 0 && (
           <button
             onClick={handleBack}
@@ -304,12 +318,13 @@ export default function QuizContainer() {
           </h2>
 
           {/* Options grid */}
-          <div className={`grid gap-4 ${question.options.length <= 3 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
+          <div className={`grid gap-4 ${question.options.length <= 3 ? "grid-cols-1 max-w-md mx-auto" : "grid-cols-1 sm:grid-cols-2"}`}>
             {question.options.map((opt) => (
               <QuizOption
                 key={opt.value}
                 icon={opt.icon}
                 iconBgClass={opt.iconBgClass}
+                accentColor={opt.accentColor}
                 label={opt.label}
                 description={opt.description}
                 selected={isSelected(opt.value)}
@@ -320,19 +335,19 @@ export default function QuizContainer() {
 
           {/* Multi-select continue button */}
           {question.multiSelect && (
-            <div className="mt-8 flex flex-col items-center gap-3">
+            <div className="mt-10 flex flex-col items-center gap-3">
               <motion.button
                 onClick={handleContinue}
                 disabled={!hasSelection()}
                 animate={{
                   scale: hasSelection() ? 1 : 0.97,
-                  opacity: hasSelection() ? 1 : 0.7,
+                  opacity: hasSelection() ? 1 : 0.5,
                 }}
                 transition={{ duration: 0.2 }}
-                className={`px-8 py-3 rounded-full font-display font-semibold text-sm transition-all ${
+                className={`px-8 py-3.5 rounded-2xl font-display font-semibold text-sm transition-all ${
                   hasSelection()
-                    ? "bg-primary text-white hover:brightness-110 shadow-card"
-                    : "bg-border text-muted cursor-not-allowed"
+                    ? "bg-dark text-white shadow-btn hover:brightness-110"
+                    : "bg-dark/[0.08] text-dark/30 cursor-not-allowed"
                 }`}
               >
                 Continue

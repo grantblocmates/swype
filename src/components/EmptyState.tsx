@@ -25,14 +25,14 @@ export default function EmptyState({ onClearFilters }: EmptyStateProps) {
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={onClearFilters}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-body font-semibold hover:brightness-110 transition-all"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-dark text-white text-sm font-display font-semibold shadow-btn hover:brightness-110 transition-all"
         >
           <FunnelSimple className="w-4 h-4" weight="bold" />
           Clear All Filters
         </button>
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-border bg-surface text-dark text-sm font-body font-medium hover:border-primary/40 transition-all"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-white border border-border-strong text-dark text-sm font-body font-medium hover:border-border-hover hover:shadow-card transition-all"
         >
           <Sparkle className="w-4 h-4" weight="duotone" />
           Take the Quiz

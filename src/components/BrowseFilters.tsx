@@ -82,7 +82,7 @@ export default function BrowseFilters({
       {/* Filter pills row */}
       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
         <div className="flex items-center text-muted mr-1 flex-shrink-0">
-          <FunnelSimple className="w-4 h-4" weight="bold" />
+          <FunnelSimple size={18} weight="bold" />
         </div>
 
         <FilterPill
@@ -110,7 +110,6 @@ export default function BrowseFilters({
           onSelect={(v) => updateFilter("staking", v)}
         />
 
-        {/* Sort pill */}
         <div className="border-l border-border pl-2 flex-shrink-0">
           <FilterPill
             label="Sort"
@@ -159,7 +158,6 @@ function FilterPill({
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Close on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -181,8 +179,8 @@ function FilterPill({
         onClick={() => setOpen(!open)}
         className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-body font-medium border transition-all duration-200 ${
           isActive
-            ? "bg-accent-yellow border-accent-yellow text-dark font-semibold"
-            : "bg-surface border-border text-dark hover:border-primary/40"
+            ? "bg-dark border-dark text-white"
+            : "bg-white border-border-strong text-dark hover:border-border-hover"
         }`}
       >
         {activeOption ? activeOption.label : label}
@@ -198,21 +196,21 @@ function FilterPill({
           />
         ) : (
           <CaretDown
-            className={`w-3.5 h-3.5 text-muted transition-transform ${open ? "rotate-180" : ""}`}
+            className={`w-3.5 h-3.5 transition-transform ${isActive ? "text-white/60" : "text-muted"} ${open ? "rotate-180" : ""}`}
             weight="bold"
           />
         )}
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-1.5 min-w-[180px] bg-surface border border-border rounded-xl shadow-card-hover py-1.5 z-50">
+        <div className="absolute top-full left-0 mt-1.5 min-w-[180px] bg-white border border-border rounded-2xl shadow-card-hover py-1.5 z-50">
           {!isSort && isActive && (
             <button
               onClick={() => {
                 onSelect(null);
                 setOpen(false);
               }}
-              className="w-full text-left px-4 py-2.5 text-sm font-body text-muted hover:bg-subtle transition-colors"
+              className="w-full text-left px-4 py-2.5 text-sm font-body text-muted hover:bg-subtle transition-colors rounded-t-lg"
             >
               All {label}s
             </button>

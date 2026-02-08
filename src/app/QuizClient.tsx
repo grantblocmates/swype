@@ -8,9 +8,23 @@ export default function QuizClient() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="max-w-2xl mx-auto px-4 py-10">
+      <main className="relative max-w-2xl mx-auto px-4 py-12 overflow-hidden">
+        {/* Ambient background blobs */}
+        <div
+          className="ambient-blob w-[300px] h-[300px] -top-10 -right-20"
+          style={{ background: "#C3DCA8", opacity: 0.15 }}
+        />
+        <div
+          className="ambient-blob w-[250px] h-[250px] top-[400px] -left-32"
+          style={{ background: "#2684FC", opacity: 0.1 }}
+        />
+        <div
+          className="ambient-blob w-[200px] h-[200px] bottom-40 right-0"
+          style={{ background: "#DAD4E2", opacity: 0.08 }}
+        />
+
         {/* Hero */}
-        <div className="text-center mb-12">
+        <div className="relative z-[1] text-center mb-14">
           <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-dark tracking-[-0.02em]">
             Find your perfect crypto card
           </h1>
@@ -19,7 +33,9 @@ export default function QuizClient() {
           </p>
         </div>
 
-        <QuizContainer />
+        <div className="relative z-[1]">
+          <QuizContainer />
+        </div>
       </main>
 
       {/* FAQ Section */}

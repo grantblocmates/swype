@@ -18,14 +18,14 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl border-b border-border shadow-[0_1px_4px_rgba(20,17,15,0.04)]">
+    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-baseline gap-2">
           <span className="font-display text-xl font-extrabold text-dark tracking-tight">
             Swype
           </span>
-          <span className="text-[11px] text-muted font-body font-normal relative -top-[1px]">
+          <span className="text-xs text-muted font-body font-normal">
             by blocmates
           </span>
         </Link>
@@ -38,7 +38,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-5 py-2 rounded-full text-sm font-medium font-body transition-all ${
+                className={`relative px-5 py-2 rounded-full text-sm font-display font-medium transition-all ${
                   isActive
                     ? "bg-dark text-white"
                     : "text-dark hover:text-primary"
@@ -71,7 +71,7 @@ export default function Header() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div className="sm:hidden border-t border-border bg-background/95 backdrop-blur-xl px-4 py-3 space-y-1">
+        <div className="sm:hidden border-t border-border bg-white/95 backdrop-blur-xl px-4 py-3 space-y-1">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -79,7 +79,7 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-2.5 rounded-xl text-sm font-medium font-body transition-colors ${
+                className={`block px-4 py-2.5 rounded-2xl text-sm font-display font-medium transition-colors ${
                   isActive
                     ? "bg-dark text-white"
                     : "text-dark hover:text-primary"

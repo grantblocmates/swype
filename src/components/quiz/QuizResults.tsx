@@ -52,13 +52,13 @@ export default function QuizResults({ cards, answers }: QuizResultsProps) {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/browse"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary-hover transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-dark text-white font-display font-semibold text-sm shadow-btn hover:brightness-110 transition-all"
           >
             Browse All Cards
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-card-border text-muted font-medium text-sm hover:text-foreground hover:border-foreground/30 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-white border border-border-strong text-dark font-body font-medium text-sm hover:border-border-hover hover:shadow-card transition-all"
           >
             <ArrowCounterClockwise className="w-4 h-4" weight="bold" />
             Retake Quiz
@@ -96,14 +96,14 @@ export default function QuizResults({ cards, answers }: QuizResultsProps) {
       <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
         <button
           onClick={handleSaveTop}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary-hover transition-colors shadow-card"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-dark text-white font-display font-semibold text-sm shadow-btn hover:brightness-110 transition-all"
         >
           Compare Top {Math.min(3, results.length)} Side by Side
           <ArrowRight className="w-4 h-4" weight="bold" />
         </button>
         <Link
           href="/browse"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-card-border text-muted font-medium text-sm hover:text-foreground hover:border-foreground/30 transition-colors"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-white border border-border-strong text-dark font-body font-medium text-sm hover:border-border-hover hover:shadow-card transition-all"
         >
           Browse All Cards
         </Link>
@@ -136,7 +136,7 @@ function ResultCard({
   const saved = isCardSaved(card.slug);
 
   return (
-    <div className="bg-card-bg border border-card-border rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-shadow relative">
+    <div className="bg-white border border-border rounded-3xl p-6 shadow-card hover:shadow-card-hover hover:-translate-y-[2px] transition-all duration-200 ease-out relative">
       {/* Best match badge */}
       {isBestMatch && (
         <div className="absolute -top-3 left-6 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-yellow text-dark text-xs font-bold shadow-card">
@@ -171,10 +171,10 @@ function ResultCard({
             </div>
             <button
               onClick={() => saved ? removeCard(card.slug) : saveCard(card.slug)}
-              className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border transition-colors ${
+              className={`flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center border transition-all duration-200 ${
                 saved
-                  ? "bg-accent-yellow/10 border-accent-yellow/30 text-accent-yellow"
-                  : "bg-card-bg border-card-border text-muted hover:text-accent-yellow hover:border-accent-yellow/30"
+                  ? "bg-accent-ruby/10 border-accent-ruby/20 text-accent-ruby"
+                  : "bg-white border-border text-muted hover:border-border-hover"
               }`}
             >
               <Heart className="w-5 h-5" weight={saved ? "fill" : "bold"} />
@@ -216,7 +216,7 @@ function ResultCard({
                 href={card.ref_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-white text-xs font-semibold hover:bg-primary-hover transition-colors"
+                className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-primary text-white text-xs font-display font-semibold hover:brightness-110 transition-all"
               >
                 <ArrowSquareOut className="w-3 h-3" weight="bold" />
                 Sign Up
