@@ -14,10 +14,10 @@ export default function EmptyState({ onClearFilters }: EmptyStateProps) {
         <MagnifyingGlass className="w-7 h-7 text-muted" weight="duotone" />
       </div>
 
-      <h3 className="text-xl font-display text-foreground mb-2">
+      <h3 className="text-xl font-display font-bold text-dark mb-2">
         No cards match your filters
       </h3>
-      <p className="text-sm text-muted max-w-sm mb-6 leading-relaxed">
+      <p className="text-sm text-muted font-body max-w-sm mb-6 leading-relaxed">
         Try adjusting or clearing your filters to see more results. Or take our
         quiz to get personalized recommendations.
       </p>
@@ -25,14 +25,14 @@ export default function EmptyState({ onClearFilters }: EmptyStateProps) {
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={onClearFilters}
-          className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-hover transition-colors"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-body font-semibold hover:brightness-110 transition-all"
         >
           <FunnelSimple className="w-4 h-4" weight="bold" />
           Clear All Filters
         </button>
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full border border-card-border text-muted text-sm font-medium hover:text-foreground hover:border-foreground/30 transition-colors"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-border bg-surface text-dark text-sm font-body font-medium hover:border-primary/40 transition-all"
         >
           <Sparkle className="w-4 h-4" weight="duotone" />
           Take the Quiz

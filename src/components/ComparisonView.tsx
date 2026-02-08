@@ -39,22 +39,22 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
   if (cards.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-foreground text-lg font-display">
+        <p className="text-dark text-2xl font-display font-bold">
           No cards to compare.
         </p>
-        <p className="text-muted text-sm mt-2">
-          Swipe right on cards in Browse to save them, or take the quiz for recommendations.
+        <p className="text-muted font-body text-sm mt-2 max-w-sm mx-auto leading-relaxed">
+          Save cards from Browse or take the quiz to get personalized recommendations, then compare them side by side.
         </p>
-        <div className="flex gap-3 justify-center mt-4">
+        <div className="flex gap-3 justify-center mt-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-hover transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-body font-semibold hover:brightness-110 transition-all"
           >
             Take the Quiz
           </Link>
           <Link
             href="/browse"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-card-border text-muted text-sm font-medium hover:text-foreground hover:border-foreground/30 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border bg-surface text-dark text-sm font-body font-medium hover:border-primary/40 transition-all"
           >
             Browse Cards
           </Link>

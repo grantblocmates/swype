@@ -3,17 +3,41 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft } from "@phosphor-icons/react";
+import {
+  ArrowLeft,
+  MapPin,
+  Globe,
+  Compass,
+  ShoppingCart,
+  AirplaneTilt,
+  Bank,
+  Sparkle,
+  Percent,
+  CurrencyDollar,
+  ShieldCheck,
+  Lightning,
+  HandPalm,
+  Coins,
+} from "@phosphor-icons/react";
+import type { ReactNode } from "react";
 import QuizProgress from "./QuizProgress";
 import QuizOption from "./QuizOption";
 import { answersToParams } from "@/lib/quiz-logic";
 import type { QuizAnswers } from "@/lib/types";
 
+interface OptionDef {
+  value: string;
+  label: string;
+  description?: string;
+  icon: ReactNode;
+  iconBgClass: string;
+}
+
 interface QuestionDef {
   id: keyof QuizAnswers;
   title: string;
   multiSelect: boolean;
-  options: { value: string; emoji: string; label: string; description?: string }[];
+  options: OptionDef[];
 }
 
 const QUESTIONS: QuestionDef[] = [
@@ -22,10 +46,30 @@ const QUESTIONS: QuestionDef[] = [
     title: "Where are you based?",
     multiSelect: false,
     options: [
-      { value: "US", emoji: "\u{1F1FA}\u{1F1F8}", label: "United States" },
-      { value: "EU", emoji: "\u{1F1EA}\u{1F1FA}", label: "Europe (EU/EEA)" },
-      { value: "UK", emoji: "\u{1F1EC}\u{1F1E7}", label: "United Kingdom" },
-      { value: "OTHER", emoji: "\u{1F30D}", label: "Somewhere else" },
+      {
+        value: "US",
+        label: "United States",
+        icon: <MapPin size={24} weight="duotone" className="text-accent-ruby" />,
+        iconBgClass: "bg-accent-ruby/12",
+      },
+      {
+        value: "EU",
+        label: "Europe (EU/EEA)",
+        icon: <Globe size={24} weight="duotone" className="text-accent-ocean" />,
+        iconBgClass: "bg-accent-ocean/12",
+      },
+      {
+        value: "UK",
+        label: "United Kingdom",
+        icon: <MapPin size={24} weight="duotone" className="text-accent-lavender" />,
+        iconBgClass: "bg-accent-lavender/12",
+      },
+      {
+        value: "OTHER",
+        label: "Somewhere else",
+        icon: <Compass size={24} weight="duotone" className="text-accent-emerald" />,
+        iconBgClass: "bg-accent-emerald/12",
+      },
     ],
   },
   {
@@ -33,10 +77,34 @@ const QUESTIONS: QuestionDef[] = [
     title: "What matters most to you?",
     multiSelect: true,
     options: [
-      { value: "cashback", emoji: "\u{1F4B0}", label: "Best cashback & rewards", description: "Earn on every purchase" },
-      { value: "self_custody", emoji: "\u{1F510}", label: "Self-custody (my keys)", description: "You hold your own crypto" },
-      { value: "no_fees", emoji: "\u{1F193}", label: "No fees, no staking", description: "Simple and free to use" },
-      { value: "borrow", emoji: "\u{1F3E6}", label: "Borrow against my crypto", description: "Spend without selling" },
+      {
+        value: "cashback",
+        label: "Maximum cashback",
+        description: "Earn on every purchase",
+        icon: <Percent size={24} weight="duotone" className="text-accent-emerald" />,
+        iconBgClass: "bg-accent-emerald/12",
+      },
+      {
+        value: "self_custody",
+        label: "Self-custody (my keys)",
+        description: "You hold your own crypto",
+        icon: <ShieldCheck size={24} weight="duotone" className="text-accent-ocean" />,
+        iconBgClass: "bg-accent-ocean/12",
+      },
+      {
+        value: "no_fees",
+        label: "Low or zero fees",
+        description: "Simple and free to use",
+        icon: <CurrencyDollar size={24} weight="duotone" className="text-accent-yellow" />,
+        iconBgClass: "bg-accent-yellow/12",
+      },
+      {
+        value: "borrow",
+        label: "DeFi features",
+        description: "Spend without selling",
+        icon: <Lightning size={24} weight="duotone" className="text-accent-lavender" />,
+        iconBgClass: "bg-accent-lavender/12",
+      },
     ],
   },
   {
@@ -44,9 +112,27 @@ const QUESTIONS: QuestionDef[] = [
     title: "Happy to stake tokens for better perks?",
     multiSelect: false,
     options: [
-      { value: "yes", emoji: "\u2705", label: "Yeah, if the rewards are worth it", description: "Higher cashback, more perks" },
-      { value: "no", emoji: "\u274C", label: "No, I don't want to lock anything", description: "Keep it simple" },
-      { value: "unsure", emoji: "\u{1F937}", label: "Not sure what staking means", description: "We'll keep it beginner-friendly" },
+      {
+        value: "yes",
+        label: "Yeah, if the rewards are worth it",
+        description: "Higher cashback, more perks",
+        icon: <Coins size={24} weight="duotone" className="text-accent-yellow" />,
+        iconBgClass: "bg-accent-yellow/12",
+      },
+      {
+        value: "no",
+        label: "No, I don\u2019t want to lock anything",
+        description: "Keep it simple",
+        icon: <HandPalm size={24} weight="duotone" className="text-accent-ruby" />,
+        iconBgClass: "bg-accent-ruby/12",
+      },
+      {
+        value: "unsure",
+        label: "Not sure what staking means",
+        description: "We\u2019ll keep it beginner-friendly",
+        icon: <Sparkle size={24} weight="duotone" className="text-accent-grape" />,
+        iconBgClass: "bg-accent-grape/12",
+      },
     ],
   },
   {
@@ -54,10 +140,34 @@ const QUESTIONS: QuestionDef[] = [
     title: "How do you plan to use the card?",
     multiSelect: true,
     options: [
-      { value: "everyday", emoji: "\u{1F6D2}", label: "Everyday spending", description: "Groceries, online, subscriptions" },
-      { value: "travel", emoji: "\u2708\uFE0F", label: "Travel & spending abroad", description: "Multi-currency, low FX fees" },
-      { value: "atm", emoji: "\u{1F4B8}", label: "ATM cash withdrawals", description: "Free or cheap cash access" },
-      { value: "trying", emoji: "\u{1F9EA}", label: "Just trying crypto spending", description: "Easy onboarding, no commitment" },
+      {
+        value: "everyday",
+        label: "Everyday spending",
+        description: "Groceries, online, subscriptions",
+        icon: <ShoppingCart size={24} weight="duotone" className="text-accent-yellow" />,
+        iconBgClass: "bg-accent-yellow/12",
+      },
+      {
+        value: "travel",
+        label: "Travel & spending abroad",
+        description: "Multi-currency, low FX fees",
+        icon: <AirplaneTilt size={24} weight="duotone" className="text-accent-ocean" />,
+        iconBgClass: "bg-accent-ocean/12",
+      },
+      {
+        value: "atm",
+        label: "ATM cash withdrawals",
+        description: "Free or cheap cash access",
+        icon: <Bank size={24} weight="duotone" className="text-accent-emerald" />,
+        iconBgClass: "bg-accent-emerald/12",
+      },
+      {
+        value: "trying",
+        label: "Just trying crypto spending",
+        description: "Easy onboarding, no commitment",
+        icon: <Sparkle size={24} weight="duotone" className="text-accent-grape" />,
+        iconBgClass: "bg-accent-grape/12",
+      },
     ],
   },
 ];
@@ -159,18 +269,18 @@ export default function QuizContainer() {
   };
 
   return (
-    <div className="max-w-lg mx-auto px-4">
+    <div className="max-w-xl mx-auto px-4">
       {/* Progress */}
-      <div className="mb-10">
+      <div className="mb-12">
         <QuizProgress currentStep={step} totalSteps={QUESTIONS.length} />
       </div>
 
       {/* Back button */}
-      <div className="h-8 mb-4">
+      <div className="h-8 mb-6">
         {step > 0 && (
           <button
             onClick={handleBack}
-            className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+            className="flex items-center gap-1.5 text-sm text-muted font-body hover:text-dark transition-colors"
           >
             <ArrowLeft className="w-4 h-4" weight="bold" />
             Back
@@ -189,16 +299,17 @@ export default function QuizContainer() {
           exit="exit"
           transition={{ type: "spring", stiffness: 300, damping: 30, duration: 0.3 }}
         >
-          <h2 className="text-2xl sm:text-3xl font-display text-foreground text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-dark text-center mb-10 tracking-[-0.02em]">
             {question.title}
           </h2>
 
           {/* Options grid */}
-          <div className={`grid gap-3 ${question.options.length <= 3 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
+          <div className={`grid gap-4 ${question.options.length <= 3 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
             {question.options.map((opt) => (
               <QuizOption
                 key={opt.value}
-                emoji={opt.emoji}
+                icon={opt.icon}
+                iconBgClass={opt.iconBgClass}
                 label={opt.label}
                 description={opt.description}
                 selected={isSelected(opt.value)}
@@ -209,18 +320,23 @@ export default function QuizContainer() {
 
           {/* Multi-select continue button */}
           {question.multiSelect && (
-            <div className="mt-6 flex flex-col items-center gap-3">
-              <button
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <motion.button
                 onClick={handleContinue}
                 disabled={!hasSelection()}
-                className={`px-8 py-3 rounded-full font-semibold text-sm transition-all ${
+                animate={{
+                  scale: hasSelection() ? 1 : 0.97,
+                  opacity: hasSelection() ? 1 : 0.7,
+                }}
+                transition={{ duration: 0.2 }}
+                className={`px-8 py-3 rounded-full font-display font-semibold text-sm transition-all ${
                   hasSelection()
-                    ? "bg-primary text-white hover:bg-primary-hover shadow-card"
-                    : "bg-subtle text-muted-light cursor-not-allowed"
+                    ? "bg-primary text-white hover:brightness-110 shadow-card"
+                    : "bg-border text-muted cursor-not-allowed"
                 }`}
               >
                 Continue
-              </button>
+              </motion.button>
             </div>
           )}
 
@@ -228,7 +344,7 @@ export default function QuizContainer() {
           <div className="mt-6 text-center">
             <button
               onClick={handleSkip}
-              className="text-sm text-muted hover:text-foreground transition-colors underline underline-offset-4"
+              className="text-sm text-muted font-body hover:text-dark transition-colors underline underline-offset-4"
             >
               Not sure / Show me everything
             </button>

@@ -10,7 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         bg: "#FBFAF1",
+        surface: "#FFFFFF",
         card: "#FFFFFF",
+        border: "#E8E4DD",
         primary: "#407076",
         "primary-hover": "#345C61",
         dark: "#14110F",
@@ -46,9 +48,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        body: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        display: ["'Sora'", "system-ui", "sans-serif"],
+        body: ["'Inter'", "system-ui", "sans-serif"],
+        sans: ["'Inter'", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
       },
       borderRadius: {

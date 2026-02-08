@@ -42,7 +42,7 @@ export default function QuizResults({ cards, answers }: QuizResultsProps) {
   if (results.length === 0) {
     return (
       <div className="max-w-lg mx-auto px-4 text-center py-16">
-        <h2 className="text-2xl font-display text-foreground mb-3">
+        <h2 className="text-2xl font-display font-bold text-dark mb-3">
           No exact matches found
         </h2>
         <p className="text-muted text-sm mb-6 leading-relaxed">
@@ -72,10 +72,10 @@ export default function QuizResults({ cards, answers }: QuizResultsProps) {
     <div className="max-w-2xl mx-auto px-4">
       {/* Header */}
       <div className="text-center mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display text-foreground tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-dark tracking-[-0.02em]">
           Your Top Matches
         </h1>
-        <p className="text-muted text-sm mt-3 max-w-md mx-auto leading-relaxed">
+        <p className="text-muted font-body text-sm mt-3 max-w-md mx-auto leading-relaxed">
           Based on your preferences, here are the cards we&apos;d recommend.
         </p>
       </div>
