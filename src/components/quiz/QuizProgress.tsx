@@ -7,16 +7,16 @@ interface QuizProgressProps {
 
 export default function QuizProgress({ currentStep, totalSteps }: QuizProgressProps) {
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-center justify-center gap-1">
       {Array.from({ length: totalSteps }).map((_, i) => (
         <div
           key={i}
-          className={`h-2 rounded-full transition-all duration-300 ${
+          className={`h-2 flex-1 max-w-[80px] rounded-full transition-all duration-300 ease-out ${
             i < currentStep
-              ? "w-8 bg-accent-yellow"
+              ? "bg-accent-yellow"
               : i === currentStep
-              ? "w-8 bg-primary"
-              : "w-2 bg-muted-light"
+              ? "bg-primary"
+              : "bg-border"
           }`}
         />
       ))}

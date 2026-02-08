@@ -81,7 +81,7 @@ export default function BrowseFilters({
     <div className="space-y-3">
       {/* Filter pills row */}
       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-        <div className="flex items-center gap-1.5 text-muted mr-1 flex-shrink-0">
+        <div className="flex items-center text-muted mr-1 flex-shrink-0">
           <FunnelSimple className="w-4 h-4" weight="bold" />
         </div>
 
@@ -111,7 +111,7 @@ export default function BrowseFilters({
         />
 
         {/* Sort pill */}
-        <div className="border-l border-card-border pl-2 flex-shrink-0">
+        <div className="border-l border-border pl-2 flex-shrink-0">
           <FilterPill
             label="Sort"
             value={filters.sortBy === "recommended" ? null : filters.sortBy}
@@ -123,13 +123,13 @@ export default function BrowseFilters({
       </div>
 
       {/* Active filter summary */}
-      <div className="flex items-center gap-2 text-sm text-muted">
-        <span>
+      <div className="flex items-center gap-2 text-sm text-muted font-body">
+        <span className="font-medium">
           {resultCount} card{resultCount !== 1 ? "s" : ""}
         </span>
         {activeCount > 0 && (
           <>
-            <span className="text-muted-light">·</span>
+            <span className="text-muted-light">&middot;</span>
             <button
               onClick={clearAll}
               className="text-primary hover:text-primary-hover font-medium transition-colors"
@@ -179,16 +179,16 @@ function FilterPill({
     <div className="relative flex-shrink-0" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-body font-medium border transition-all duration-200 ${
           isActive
-            ? "bg-primary/10 border-primary/30 text-primary"
-            : "bg-card border-card-border text-muted hover:text-foreground hover:border-foreground/20"
+            ? "bg-accent-yellow border-accent-yellow text-dark font-semibold"
+            : "bg-surface border-border text-dark hover:border-primary/40"
         }`}
       >
         {activeOption ? activeOption.label : label}
         {isActive && !isSort ? (
           <X
-            className="w-3 h-3 ml-0.5"
+            className="w-3.5 h-3.5 ml-0.5"
             weight="bold"
             onClick={(e) => {
               e.stopPropagation();
@@ -198,21 +198,21 @@ function FilterPill({
           />
         ) : (
           <CaretDown
-            className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`}
+            className={`w-3.5 h-3.5 text-muted transition-transform ${open ? "rotate-180" : ""}`}
             weight="bold"
           />
         )}
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-1.5 min-w-[160px] bg-card border border-card-border rounded-xl shadow-card-hover py-1.5 z-50">
+        <div className="absolute top-full left-0 mt-1.5 min-w-[180px] bg-surface border border-border rounded-xl shadow-card-hover py-1.5 z-50">
           {!isSort && isActive && (
             <button
               onClick={() => {
                 onSelect(null);
                 setOpen(false);
               }}
-              className="w-full text-left px-3.5 py-2 text-xs text-muted hover:bg-subtle transition-colors"
+              className="w-full text-left px-4 py-2.5 text-sm font-body text-muted hover:bg-subtle transition-colors"
             >
               All {label}s
             </button>
@@ -224,10 +224,10 @@ function FilterPill({
                 onSelect(opt.value);
                 setOpen(false);
               }}
-              className={`w-full text-left px-3.5 py-2 text-xs transition-colors ${
+              className={`w-full text-left px-4 py-2.5 text-sm font-body transition-colors ${
                 value === opt.value
                   ? "text-primary font-semibold bg-primary/5"
-                  : "text-foreground hover:bg-subtle"
+                  : "text-dark hover:bg-subtle"
               }`}
             >
               {opt.label}

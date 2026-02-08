@@ -148,10 +148,10 @@ export default function BrowseClient({ cards }: BrowseClientProps) {
         {/* Page header with view toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-display text-foreground tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-dark tracking-[-0.02em]">
               Browse Cards
             </h1>
-            <p className="text-muted text-sm mt-1.5 max-w-md leading-relaxed">
+            <p className="text-muted font-body text-sm mt-1.5 max-w-md leading-relaxed">
               Find the perfect crypto card for your needs.
             </p>
           </div>
@@ -171,8 +171,8 @@ export default function BrowseClient({ cards }: BrowseClientProps) {
         {view === "list" ? (
           filteredCards.length > 0 ? (
             <div className="space-y-3">
-              {filteredCards.map((card) => (
-                <BrowseListCard key={card.slug} card={card} />
+              {filteredCards.map((card, i) => (
+                <BrowseListCard key={card.slug} card={card} index={i} />
               ))}
             </div>
           ) : (
