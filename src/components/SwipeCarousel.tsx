@@ -6,7 +6,7 @@ import type { TierCardPreview } from "@/lib/types";
 import SwipeableCard from "./SwipeableCard";
 import CardVisual from "./CardVisual";
 import { useSavedCards } from "@/context/SavedCardsContext";
-import { Heart, RotateCcw, X } from "lucide-react";
+import { Heart, ArrowCounterClockwise, X } from "@phosphor-icons/react";
 import Link from "next/link";
 
 interface SwipeCarouselProps {
@@ -63,7 +63,7 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
       {/* Saved counter + progress */}
       <div className="flex items-center gap-3 mb-6 text-sm text-muted">
         <div className="flex items-center gap-1.5">
-          <Heart className="w-4 h-4 text-accent" />
+          <Heart className="w-4 h-4 text-accent-yellow" weight="fill" />
           <span className="font-medium">
             {savedCount} saved
           </span>
@@ -78,10 +78,10 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
       <div className="relative w-full overflow-hidden" style={{ minHeight: 500 }}>
         {isFinished ? (
           <div className="flex flex-col items-center justify-center py-16 text-center px-4">
-            <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-              <Heart className="w-8 h-8 text-accent" />
+            <div className="w-16 h-16 rounded-full bg-accent-yellow/10 flex items-center justify-center mb-4">
+              <Heart className="w-8 h-8 text-accent-yellow" weight="fill" />
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">
+            <h3 className="text-xl font-display text-foreground mb-2">
               You&apos;ve seen all cards!
             </h3>
             <p className="text-muted text-sm mb-6 max-w-xs">
@@ -93,7 +93,7 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
               {savedCount > 0 && (
                 <Link
                   href="/compare"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-hover transition-colors"
                 >
                   Compare Cards
                 </Link>
@@ -106,7 +106,7 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
                 }}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-card-border text-muted text-sm font-medium hover:text-foreground hover:border-foreground/30 transition-colors"
               >
-                <RotateCcw className="w-4 h-4" />
+                <ArrowCounterClockwise className="w-4 h-4" weight="bold" />
                 Start Over
               </button>
             </div>
@@ -159,31 +159,33 @@ export default function SwipeCarousel({ cards, onCardTap }: SwipeCarouselProps) 
         <div className="flex items-center gap-4 mt-4">
           <motion.button
             onClick={handleSwipeLeft}
-            whileTap={{ scale: 0.9 }}
-            className="w-16 h-16 rounded-full bg-card-bg border-2 border-card-border flex items-center justify-center text-secondary shadow-card hover:shadow-card-hover hover:border-secondary/30 transition-all"
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            className="w-14 h-14 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-muted shadow-md transition-colors"
             aria-label="Skip card"
           >
-            <X className="w-7 h-7" />
+            <X className="w-6 h-6" weight="bold" />
           </motion.button>
 
           {history.length > 0 && (
             <motion.button
               onClick={handleUndo}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
               className="w-11 h-11 rounded-full bg-card-bg border border-card-border flex items-center justify-center text-muted shadow-card hover:text-foreground transition-all"
               aria-label="Undo last swipe"
             >
-              <RotateCcw className="w-4 h-4" />
+              <ArrowCounterClockwise className="w-4 h-4" weight="bold" />
             </motion.button>
           )}
 
           <motion.button
             onClick={handleSwipeRight}
-            whileTap={{ scale: 0.9 }}
-            className="w-16 h-16 rounded-full bg-accent border-2 border-accent flex items-center justify-center text-white shadow-card hover:shadow-card-hover hover:bg-accent-hover transition-all"
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            className="w-14 h-14 rounded-full bg-accent-yellow hover:bg-accent-yellow/90 flex items-center justify-center text-white shadow-md transition-colors"
             aria-label="Save card"
           >
-            <Heart className="w-7 h-7" />
+            <Heart className="w-6 h-6" weight="fill" />
           </motion.button>
         </div>
       )}

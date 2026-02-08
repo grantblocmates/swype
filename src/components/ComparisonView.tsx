@@ -5,7 +5,7 @@ import CardVisual from "./CardVisual";
 import ChainBadge from "./ChainBadge";
 import CardTypeBadge from "./CardTypeBadge";
 import { useSavedCards } from "@/context/SavedCardsContext";
-import { X, ExternalLink } from "lucide-react";
+import { X, ArrowSquareOut } from "@phosphor-icons/react";
 import Link from "next/link";
 
 interface ComparisonViewProps {
@@ -39,7 +39,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
   if (cards.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-foreground text-lg font-medium">
+        <p className="text-foreground text-lg font-display">
           No cards to compare.
         </p>
         <p className="text-muted text-sm mt-2">
@@ -48,7 +48,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
         <div className="flex gap-3 justify-center mt-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-hover transition-colors"
           >
             Take the Quiz
           </Link>
@@ -180,7 +180,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                     onClick={() => removeCard(card.slug)}
                     className="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-subtle flex items-center justify-center text-muted hover:text-secondary hover:bg-secondary/10 transition-colors z-10"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5" weight="bold" />
                   </button>
 
                   <div className="mb-3 pr-6">
@@ -195,7 +195,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                     />
                   </div>
 
-                  <h3 className="text-sm font-bold text-foreground truncate">
+                  <h3 className="text-sm font-display text-foreground truncate">
                     {card.displayName}
                   </h3>
                   <p className="text-xs text-muted mt-0.5">{card.issuer}</p>
@@ -205,9 +205,9 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                       href={card.ref_link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-3 flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-xl bg-accent text-white text-xs font-semibold hover:bg-accent-hover transition-colors"
+                      className="mt-3 flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-full bg-primary text-white text-xs font-semibold hover:bg-primary-hover transition-colors"
                     >
-                      <ExternalLink className="w-3 h-3" />
+                      <ArrowSquareOut className="w-3 h-3" weight="bold" />
                       Sign Up
                     </a>
                   )}
@@ -220,7 +220,7 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
         <tbody>
           {rows.map((row, rowIdx) => (
             <tr key={row.label} className={rowIdx % 2 === 0 ? "bg-subtle/50" : ""}>
-              <td className="sticky left-0 z-10 px-2 py-3 text-xs font-semibold uppercase tracking-wider text-muted whitespace-nowrap bg-inherit">
+              <td className="sticky left-0 z-10 px-2 py-3 text-xs font-semibold uppercase tracking-wider text-muted whitespace-nowrap bg-inherit font-body">
                 <div
                   className={`${rowIdx % 2 === 0 ? "bg-subtle/50" : "bg-background"} -mx-2 px-2 py-3 -my-3`}
                 >
@@ -231,12 +231,12 @@ export default function ComparisonView({ cards }: ComparisonViewProps) {
                 <td
                   key={cards[colIdx].slug}
                   className={`px-3 py-3 text-sm font-medium min-w-[220px] ${
-                    row.bestFlags[colIdx] ? "text-accent font-semibold" : "text-foreground"
+                    row.bestFlags[colIdx] ? "text-accent-emerald font-semibold" : "text-foreground"
                   }`}
                 >
                   <div
                     className={`rounded-lg px-3 py-2 ${
-                      row.bestFlags[colIdx] ? "bg-accent/8 border border-accent/15" : ""
+                      row.bestFlags[colIdx] ? "bg-accent-emerald/10 border-l-2 border-accent-emerald" : ""
                     }`}
                   >
                     {val}

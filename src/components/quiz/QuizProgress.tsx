@@ -13,9 +13,9 @@ export default function QuizProgress({ currentStep, totalSteps }: QuizProgressPr
           key={i}
           className={`h-2 rounded-full transition-all duration-300 ${
             i < currentStep
-              ? "w-8 bg-accent"
+              ? "w-8 bg-accent-yellow"
               : i === currentStep
-              ? "w-8 bg-accent"
+              ? "w-8 bg-primary"
               : "w-2 bg-muted-light"
           }`}
         />

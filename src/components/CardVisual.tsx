@@ -1,6 +1,6 @@
 import type { CardType, CardNetwork } from "@/lib/types";
 import CardTypeBadge from "./CardTypeBadge";
-import { CreditCard, Shield, Wallet } from "lucide-react";
+import { CreditCard, Shield, Wallet } from "@phosphor-icons/react";
 
 const gradientMap: Record<CardType, string> = {
   prepaid_debit: "from-blue-900 via-blue-800 to-slate-900",
@@ -18,9 +18,9 @@ function NetworkLogo({ network }: { network: CardNetwork }) {
 }
 
 function CustodyIcon({ model }: { model: string | null }) {
-  if (model === "self_custody") return <Shield className="w-4 h-4" />;
-  if (model === "hybrid") return <Wallet className="w-4 h-4" />;
-  return <CreditCard className="w-4 h-4" />;
+  if (model === "self_custody") return <Shield className="w-4 h-4" weight="duotone" />;
+  if (model === "hybrid") return <Wallet className="w-4 h-4" weight="duotone" />;
+  return <CreditCard className="w-4 h-4" weight="duotone" />;
 }
 
 interface CardVisualProps {
@@ -48,10 +48,13 @@ export default function CardVisual({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl shadow-card-lg w-full aspect-[1.586/1] ${
+      className={`relative overflow-hidden rounded-2xl w-full aspect-[1.586/1] border border-white/10 ${
         !customBg ? `bg-gradient-to-br ${gradient}` : ""
       }`}
-      style={customBg}
+      style={{
+        ...customBg,
+        boxShadow: "0 8px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.1)",
+      }}
     >
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-10">

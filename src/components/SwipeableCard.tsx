@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import type { TierCardPreview } from "@/lib/types";
 import CardPreview from "./CardPreview";
-import { Heart, X } from "lucide-react";
+import { Heart, X } from "@phosphor-icons/react";
 
 interface SwipeableCardProps {
   card: TierCardPreview;
@@ -53,7 +53,7 @@ export default function SwipeableCard({
   const saveBg = useTransform(
     x,
     [0, 60, 150],
-    ["rgba(64,112,118,0)", "rgba(64,112,118,0.03)", "rgba(64,112,118,0.08)"]
+    ["rgba(255,181,0,0)", "rgba(255,181,0,0.03)", "rgba(255,181,0,0.08)"]
   );
   const skipBg = useTransform(
     x,
@@ -61,7 +61,7 @@ export default function SwipeableCard({
     ["rgba(165,63,43,0.08)", "rgba(165,63,43,0.03)", "rgba(165,63,43,0)"]
   );
 
-  function handleDragEnd(_: any, info: PanInfo) {
+  function handleDragEnd(_: unknown, info: PanInfo) {
     const offset = info.offset.x;
     const velocity = info.velocity.x;
 
@@ -93,22 +93,22 @@ export default function SwipeableCard({
     >
       {/* Swipe indicators */}
       <motion.div
-        className="absolute top-6 right-6 z-10 flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-white font-bold shadow-lg"
+        className="absolute top-6 right-6 z-10 flex items-center gap-2 rounded-full bg-accent-yellow px-4 py-2 text-white font-bold shadow-lg"
         style={{ opacity: saveOpacity }}
       >
-        <Heart className="w-5 h-5" />
+        <Heart className="w-5 h-5" weight="fill" />
         SAVE
       </motion.div>
       <motion.div
         className="absolute top-6 left-6 z-10 flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-white font-bold shadow-lg"
         style={{ opacity: skipOpacity }}
       >
-        <X className="w-5 h-5" />
+        <X className="w-5 h-5" weight="bold" />
         SKIP
       </motion.div>
 
       <motion.div
-        className="bg-card-bg border border-card-border rounded-3xl p-7 shadow-card-lg relative overflow-hidden"
+        className="bg-card-bg border border-card-border rounded-3xl p-7 shadow-card-lg relative overflow-hidden hover:-translate-y-1 hover:shadow-card-lift transition-all duration-200"
         style={{ background: saveBg }}
       >
         <motion.div

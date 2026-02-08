@@ -6,23 +6,23 @@ const typeConfig: Record<
 > = {
   prepaid_debit: {
     label: "Prepaid Debit",
-    color: "text-blue-700",
-    bg: "bg-blue-50 border-blue-200",
+    color: "text-accent-ocean",
+    bg: "bg-accent-ocean/10 border-accent-ocean/20",
   },
   pure_rewards: {
     label: "Rewards",
-    color: "text-amber-700",
-    bg: "bg-amber-50 border-amber-200",
+    color: "text-accent-yellow",
+    bg: "bg-accent-yellow/10 border-accent-yellow/20",
   },
   collateralized_defi: {
     label: "DeFi",
-    color: "text-purple-700",
-    bg: "bg-purple-50 border-purple-200",
+    color: "text-accent-emerald",
+    bg: "bg-accent-emerald/10 border-accent-emerald/20",
   },
   self_custody: {
     label: "Self-Custody",
-    color: "text-teal-700",
-    bg: "bg-teal-50 border-teal-200",
+    color: "text-accent-lavender",
+    bg: "bg-accent-lavender/10 border-accent-lavender/20",
   },
 };
 
@@ -64,11 +64,11 @@ export default function CardTypeBadge({
 }) {
   const config = variant === "on-card" ? cardTypeConfig[type] : typeConfig[type];
   const sizeClasses =
-    size === "sm" ? "text-[10px] px-2 py-0.5" : "text-xs px-2.5 py-1";
+    size === "sm" ? "text-[10px] px-2.5 py-0.5" : "text-xs px-3 py-1";
 
   return (
     <span
-      className={`inline-flex items-center rounded-full border font-medium ${config.color} ${config.bg} ${sizeClasses}`}
+      className={`inline-flex items-center rounded-full border font-semibold ${config.color} ${config.bg} ${sizeClasses}`}
     >
       {config.label}
     </span>

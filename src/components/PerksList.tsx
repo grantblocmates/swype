@@ -1,41 +1,53 @@
 import type { Perk, PerkCategory } from "@/lib/types";
 import {
   Shield,
-  Plane,
-  Tv,
-  TrendingUp,
+  AirplaneTilt,
+  Television,
+  TrendUp,
   Coins,
-  ArrowRightLeft,
+  ArrowsLeftRight,
   Eye,
-  Headphones,
+  Headset,
   Star,
-} from "lucide-react";
+} from "@phosphor-icons/react";
+
+const categoryColors: Record<PerkCategory, string> = {
+  insurance: "text-accent-ocean",
+  lounge_access: "text-accent-lavender",
+  subscriptions: "text-accent-grape",
+  yield: "text-accent-emerald",
+  defi_feature: "text-accent-forest",
+  transfers: "text-accent-sky",
+  privacy: "text-accent-ruby",
+  concierge: "text-accent-yellow",
+  other: "text-accent-pink",
+};
 
 const categoryConfig: Record<
   PerkCategory,
   { label: string; icon: React.ReactNode }
 > = {
-  insurance: { label: "Insurance", icon: <Shield className="w-4 h-4" /> },
+  insurance: { label: "Insurance", icon: <Shield className="w-4 h-4" weight="duotone" /> },
   lounge_access: {
     label: "Lounge Access",
-    icon: <Plane className="w-4 h-4" />,
+    icon: <AirplaneTilt className="w-4 h-4" weight="duotone" />,
   },
   subscriptions: {
     label: "Subscriptions",
-    icon: <Tv className="w-4 h-4" />,
+    icon: <Television className="w-4 h-4" weight="duotone" />,
   },
-  yield: { label: "Yield", icon: <TrendingUp className="w-4 h-4" /> },
-  defi_feature: { label: "DeFi", icon: <Coins className="w-4 h-4" /> },
+  yield: { label: "Yield", icon: <TrendUp className="w-4 h-4" weight="duotone" /> },
+  defi_feature: { label: "DeFi", icon: <Coins className="w-4 h-4" weight="duotone" /> },
   transfers: {
     label: "Transfers",
-    icon: <ArrowRightLeft className="w-4 h-4" />,
+    icon: <ArrowsLeftRight className="w-4 h-4" weight="duotone" />,
   },
-  privacy: { label: "Privacy", icon: <Eye className="w-4 h-4" /> },
+  privacy: { label: "Privacy", icon: <Eye className="w-4 h-4" weight="duotone" /> },
   concierge: {
     label: "Concierge",
-    icon: <Headphones className="w-4 h-4" />,
+    icon: <Headset className="w-4 h-4" weight="duotone" />,
   },
-  other: { label: "Other", icon: <Star className="w-4 h-4" /> },
+  other: { label: "Other", icon: <Star className="w-4 h-4" weight="duotone" /> },
 };
 
 interface PerksListProps {
@@ -67,9 +79,11 @@ export default function PerksList({ perks }: PerksListProps) {
       {Object.entries(grouped).map(([category, categoryPerks]) => {
         const config =
           categoryConfig[category as PerkCategory] || categoryConfig.other;
+        const colorClass =
+          categoryColors[category as PerkCategory] || categoryColors.other;
         return (
           <div key={category}>
-            <div className="flex items-center gap-2 mb-2 text-muted">
+            <div className={`flex items-center gap-2 mb-2 ${colorClass}`}>
               {config.icon}
               <h4 className="text-xs font-semibold uppercase tracking-wider">
                 {config.label}
@@ -86,7 +100,7 @@ export default function PerksList({ perks }: PerksListProps) {
                       {perk.perk_name}
                     </p>
                     {perk.perk_value && (
-                      <span className="text-xs font-medium text-accent flex-shrink-0">
+                      <span className={`text-xs font-semibold flex-shrink-0 ${colorClass}`}>
                         {perk.perk_value}
                       </span>
                     )}
